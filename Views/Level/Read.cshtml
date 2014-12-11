@@ -1,0 +1,43 @@
+﻿@model List<SchoolManager.Models.PupilModel>
+@{
+    ViewBag.Title = "Level";
+}
+
+<h2>Level - </h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Sex</th>
+            <th>Birthday Date</th>
+            <th>State</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pupil in Model)
+        {
+            <tr>
+                <td>@pupil.FirstName</td>
+                <td>@pupil.LastName</td>
+                <td>@pupil.Sex</td>
+                <td>@pupil.BirthdayDate.ToString()</td>
+                <td>@pupil.State</td>
+                <!--<td>
+                    @Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Cycle",
+                    routeValues: new
+                      {
+
+                      },
+                      htmlAttributes: null
+                )
+                </td>-->
+            </tr>
+        }
+    </tbody>
+</table>

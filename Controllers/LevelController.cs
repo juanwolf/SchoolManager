@@ -36,17 +36,24 @@ namespace SchoolManager.Controllers
         {
             using (var entity = new Entities())
             {
-                var levelrepo = new LevelRepository(entity);
-                LevelModel level = levelrepo.getById(id).Join(entity.Cycles, 
-                    (lvl => lvl.Cycle_Id), (cycle => cycle.Id), (lvl, cycle) => new LevelModel
-                {
-                    Cycle_Id = lvl.Cycle_Id,
-                    CycleName = cycle.Title,
+                var pupilsRepo = new PupilRepository(entity);
+                var levelRepo = new LevelRepository(entity);
+                LevelModel level = levelRepo.getById(id).Select(lvl => new LevelModel { 
                     Id = lvl.Id,
-                    Title = lvl.Title
+                    Title = lvl.Title,
+                    Cycle_Id = lvl.Cycle_Id
                 }).First();
+                List<PupilModel> pupils = pupilsRepo.getByLevel(id).Select(p => new PupilModel {
+                    BirthdayDate = p.BirthdayDate,
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
+                    Sex = p.Sex,
+                    State = p.State,
+                    Level_Id = level.Id,
+                    LevelTitle = level.Title
+                }).ToList();
                 
-                return View(level);
+                return View(pupils);
             }
         }
 
