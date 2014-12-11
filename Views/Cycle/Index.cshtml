@@ -1,0 +1,31 @@
+﻿@model List<SchoolManager.Models.CycleModel>
+@{
+    ViewBag.Title = "Cycles";
+}
+
+<h2>Cycles</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cycle in Model) { 
+        <tr>
+            <td>@cycle.Title</td>
+            <td>@Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Cycle",
+                    routeValues: new
+                      {
+                          id = @cycle.Id
+                      },
+                      htmlAttributes: null
+                )</td>
+        </tr>
+        }
+    </tbody>
+</table>

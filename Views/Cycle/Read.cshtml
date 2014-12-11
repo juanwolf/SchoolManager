@@ -1,0 +1,34 @@
+﻿@model List<SchoolManager.Models.LevelModel>
+@{
+    ViewBag.Title = "Read";
+}
+
+<h2>Levels for cycle @Model.First().CycleName </h2>
+
+<table class="table">
+    <thead>
+        <tr>
+           <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var level in Model)
+        {
+            <tr>
+                <td>@level.Title</td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Cycle",
+                    routeValues: new
+                      {
+                          
+                      },
+                      htmlAttributes: null
+                )
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
