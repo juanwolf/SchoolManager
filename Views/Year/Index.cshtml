@@ -1,0 +1,35 @@
+﻿@model List<SchoolManager.Models.YearModel>
+@{
+    ViewBag.Title = "Years";
+}
+
+<h2>Years</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Year</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (SchoolManager.Models.YearModel year in Model)
+        {
+            <tr>
+                <td>
+                   @year.Year1
+                </td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Year",
+                    routeValues: new
+                      {
+                          id = year.Id
+                      },
+                      htmlAttributes: null
+                )
+                </td>
+            </tr>
+        }
+    </tbody>
+    </table>
