@@ -1,0 +1,67 @@
+﻿@model SchoolManager.Models.YearModel
+@{
+    ViewBag.Title = "Read";
+}
+
+<h2>Year @Model.Year1</h2>
+
+<h3>Periods</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Begin</th>
+            <th>End</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var period in Model.periods)
+        {
+            <tr>
+                <td>@period.Begin.ToString()</td>
+                <td>@period.End.ToString()</td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Period",
+                    routeValues: new
+                      {
+                        id = period.Id
+                      },
+                      htmlAttributes: null
+                )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Classrooms</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var classroom in Model.classrooms)
+        {
+            <tr>
+                <td>@classroom.Title</td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Period",
+                    routeValues: new
+                      {
+                          id = classroom.Id
+                      },
+                      htmlAttributes: null
+                )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

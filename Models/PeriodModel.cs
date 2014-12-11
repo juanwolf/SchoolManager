@@ -31,5 +31,11 @@ namespace SchoolManager.Models
             set;
         }
 
+        public int Year1
+        {
+            get;
+            set;
+        }
+
     }
 }

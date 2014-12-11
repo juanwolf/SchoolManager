@@ -5,38 +5,36 @@ using System.Web;
 
 namespace SchoolManager.Models
 {
-    public class YearModel
+    public class ClassroomModel
     {
-        public Guid Id {
-            get; set;
-        }
-        public int Year1 {
-            get; set;
-        }
-
-        public Guid ClassroomId
+        public Guid Id
         {
             get;
             set;
         }
 
-        public Guid PeriodsId
+        public String Title
         {
             get;
             set;
         }
 
-        public List<ClassroomModel> classrooms
+        public Guid User_Id
         {
             get;
             set;
         }
 
-        public List<PeriodModel> periods
+        public Guid Year_Id
         {
             get;
             set;
         }
 
+        public Guid Establishment_Id
+        {
+            get;
+            set;
+        }
     }
 }
