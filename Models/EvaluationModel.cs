@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SchoolManager.Models
 {
-    public class PeriodModel
+    public class EvaluationModel
     {
         public Guid Id
         {
@@ -13,35 +13,34 @@ namespace SchoolManager.Models
             set;
         }
 
-        public DateTime Begin
+        public Guid Classroom_Id
         {
             get;
             set;
         }
 
-        public DateTime End
+        public Guid User_Id
         {
             get;
             set;
         }
 
-        public Guid Year_Id
+        public Guid Period_Id
         {
             get;
             set;
         }
 
-        public int Year1
+        public DateTime Date
         {
             get;
             set;
         }
 
-        public List<EvaluationModel> Evaluations
+        public int TotalPoint
         {
             get;
             set;
         }
-
     }
 }

@@ -1,0 +1,37 @@
+﻿@model SchoolManager.Models.PeriodModel
+@{
+    ViewBag.Title = "Period";
+}
+
+<h2>Period from @Model.Begin.ToShortDateString() to @Model.End.ToShortDateString() </h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Point</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eval in Model.Evaluations)
+        {
+            <tr>
+                <td>@eval.Date.ToShortDateString()</td>
+                <td>@eval.TotalPoint</td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Evaluation",
+                    routeValues: new
+                      {
+
+                      },
+                      htmlAttributes: null
+                )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

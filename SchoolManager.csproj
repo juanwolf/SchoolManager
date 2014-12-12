@@ -185,8 +185,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CycleController.cs" />
+    <Compile Include="Controllers\EvaluationlModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LevelController.cs" />
+    <Compile Include="Controllers\PeriodController.cs" />
     <Compile Include="Controllers\YearController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -227,6 +229,8 @@
     <Compile Include="Models\Evaluation.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EvaluationModel.cs" />
+    <Compile Include="Models\EvaluationRepository.cs" />
     <Compile Include="Models\Level.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -397,6 +401,8 @@
     <Content Include="Views\Level\Read.cshtml" />
     <Content Include="Views\Year\Index.cshtml" />
     <Content Include="Views\Year\Read.cshtml" />
+    <Content Include="Views\Period\Index.cshtml" />
+    <Content Include="Views\Period\Read.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
