@@ -20,10 +20,10 @@
                     @period.Year1
                 </td>
                 <td>
-                    @period.Begin.ToString()
+                    @period.Begin.ToShortDateString()
                 </td>
                 <td>
-                    @period.Begin.ToString()
+                    @period.End.ToShortDateString()
                 </td>
                 
                 <td>
@@ -35,7 +35,10 @@
                       {
                           id = period.Id
                       },
-                      htmlAttributes: null
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
                 )
                 </td>
             </tr>

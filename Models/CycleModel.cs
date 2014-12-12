@@ -19,5 +19,9 @@ namespace SchoolManager.Models
             set;
         }
 
+        public List<LevelModel> levels {
+            get;
+            set;
+        }
     }
 }

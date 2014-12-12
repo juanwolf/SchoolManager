@@ -1,9 +1,9 @@
-﻿@model List<SchoolManager.Models.PupilModel>
+﻿@model SchoolManager.Models.LevelModel
 @{
     ViewBag.Title = "Level";
 }
 
-<h2>Level - </h2>
+<h2>Level - @Model.Title</h2>
 
 
 <table class="table">
@@ -17,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var pupil in Model)
+        @foreach (var pupil in Model.pupils)
         {
             <tr>
                 <td>@pupil.FirstName</td>

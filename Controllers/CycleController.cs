@@ -33,13 +33,14 @@ namespace SchoolManager.Controllers
                     Title = c.Title
                 }).First();
                 var levelrepo = new LevelRepository(entity);
-                List<LevelModel> level = levelrepo.getByCycleId(cycle.Id).Select(s => new LevelModel {
+                List<LevelModel> levels = levelrepo.getByCycleId(cycle.Id).Select(s => new LevelModel {
                     Cycle_Id = s.Cycle_Id,
                     CycleName = cycle.Title,
                     Id = s.Id,
                     Title = s.Title
                 }).ToList();
-                return View(level);
+                cycle.levels = levels;
+                return View(cycle);
             }
         }
 

@@ -25,5 +25,11 @@ namespace SchoolManager.Models
             get;
             set;
         }
+
+        public List<PupilModel> pupils
+        {
+            get;
+            set;
+        }
     }
 }

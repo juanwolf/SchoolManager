@@ -1,9 +1,9 @@
-﻿@model List<SchoolManager.Models.LevelModel>
+﻿@model SchoolManager.Models.CycleModel
 @{
-    ViewBag.Title = "Read";
+    ViewBag.Title = "Cycle " + Model.Title;
 }
 
-<h2>Levels for cycle @Model.First().CycleName </h2>
+<h2>Levels for cycle @Model.Title </h2>
 
 <table class="table">
     <thead>
@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var level in Model)
+        @foreach (var level in Model.levels)
         {
             <tr>
                 <td>@level.Title</td>
@@ -20,12 +20,17 @@
                     @Html.ActionLink(
                     linkText: "See",
                     actionName: "Read",
-                    controllerName: "Cycle",
+                    controllerName: "Level",
                     routeValues: new
                       {
+                          id=@level.Id
+                          
                           
                       },
-                      htmlAttributes: null
+                    htmlAttributes: new
+                    {
+                        target= "_blank",
+                    }
                 )
             </td>
         </tr>

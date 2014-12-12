@@ -52,8 +52,8 @@ namespace SchoolManager.Controllers
                     Level_Id = level.Id,
                     LevelTitle = level.Title
                 }).ToList();
-                
-                return View(pupils);
+                level.pupils = pupils;
+                return View(level);
             }
         }
 
