@@ -27,10 +27,12 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li>@Html.ActionLink("Cycles", "Index", "Cycle")</li>
-                            <li>@Html.ActionLink("Levels", "Index", "Level")</li>
-                            <li>@Html.ActionLink("Periods", "Index", "Period")</li>
-                            <li>@Html.ActionLink("Years", "Index", "Year")</li>
+                            <li>@Html.ActionLink("Cycles", "Index", "Cycle", new { area = "Administration"}, null)</li>
+                            <li>@Html.ActionLink("Levels", "Index", "Level", new { area = "Administration"}, null)</li>
+                            <li>@Html.ActionLink("Periods", "Index", "Period", new { area = "Administration" }, null)</li>
+                            <li>@Html.ActionLink("Years", "Index", "Year", new { area = "Administration" }, null)</li>
+                            <li>@Html.ActionLink("Pupils", "Index", "Pupil", new { area = "ClassManagement" }, null)</li>
+                            <li>@Html.ActionLink("Tutors", "Index", "Tutor", new { area = "ClassManagement" }, null)</li>
                         </ul>
                         <!--<form class="navbar-form navbar-left" role="search">
                             <div class="form-group">

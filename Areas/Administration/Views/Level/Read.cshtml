@@ -14,6 +14,21 @@
             <th>Sex</th>
             <th>Birthday Date</th>
             <th>State</th>
+            <th>@Html.ActionLink(
+                    linkText: "Add Pupil",
+                    actionName: "Create",
+                    controllerName: "Pupil",
+                    routeValues: new
+                    {
+                        area = "ClassManagement",
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "btn btn-default btn-sm",
+                        target = "_blank",
+                    }
+                )
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -29,12 +44,16 @@
                     @Html.ActionLink(
                     linkText: "See",
                     actionName: "Read",
-                    controllerName: "Cycle",
+                    controllerName: "Pupil",
                     routeValues: new
                       {
-
+                          id=@pupil.Id
                       },
-                      htmlAttributes: null
+                    htmlAttributes: new
+                     {
+                         
+                         target = "_blank",
+                     }
                 )
                 </td>-->
             </tr>

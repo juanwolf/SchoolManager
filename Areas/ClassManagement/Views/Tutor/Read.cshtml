@@ -1,0 +1,33 @@
+﻿@model SchoolManager.Models.TutorModel
+@{
+    ViewBag.Title = "Read";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>Post code</th>
+            <th>Town</th>
+            <th>Tel</th>
+            <th>Mail</th>
+            <th>Comment</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr>
+                <td>@Model.FirstName</td>
+                <td>@Model.LastName</td>
+                <td>@Model.Address</td>
+                <td>@Model.PostCode</td>
+                <td>@Model.Town</td>
+                <th>@Model.Tel</th>
+                <th>@Model.Mail</th>
+                <th>@Model.Comment</th>
+            </tr>
+    </tbody>
+</table>
+
+

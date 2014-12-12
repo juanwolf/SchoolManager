@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SchoolManager.Controllers
+namespace SchoolManager.Areas.Administration.Controllers
 {
     public class YearController : Controller
     {

@@ -1,6 +1,7 @@
 ﻿@model List<SchoolManager.Models.CycleModel>
 @{
     ViewBag.Title = "Cycles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Cycles</h2>
@@ -21,6 +22,7 @@
                     controllerName: "Cycle",
                     routeValues: new
                       {
+                          area="Administration",
                           id = @cycle.Id
                       },
                        htmlAttributes: new

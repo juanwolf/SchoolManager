@@ -1,0 +1,62 @@
+﻿@model List<SchoolManager.Models.PupilModel>
+@{
+    ViewBag.Title = "Pupils";
+}
+
+<h2>Pupils</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Sex</th>
+            <th>Birthday Date</th>
+            <th>State</th>
+            <th>
+                <button class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    @Html.ActionLink(
+                    linkText: "Add Pupil",
+                    actionName: "Create",
+                    controllerName: "Pupil",
+                    routeValues: new
+                    {
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "",
+                        target = "_blank",
+                    }
+                )
+                </button>
+        </th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var pupil in Model)
+    {
+        <tr>
+            <td>@pupil.FirstName</td>
+            <td>@pupil.LastName</td>
+            <td>@pupil.Sex</td>
+            <td>@pupil.BirthdayDate.ToString()</td>
+            <td>@pupil.State</td>
+            <!--<td>
+                @Html.ActionLink(
+                linkText: "See",
+                actionName: "Read",
+                controllerName: "Pupil",
+                routeValues: new
+                  {
+                      id=@pupil.Id
+                  },
+                htmlAttributes: new
+                 {
+                     target = "_blank",
+                 }
+            )
+            </td>-->
+        </tr>
+    }
+</tbody>
+</table>

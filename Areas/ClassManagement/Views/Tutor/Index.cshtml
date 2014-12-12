@@ -1,0 +1,78 @@
+﻿@model List<SchoolManager.Models.TutorModel>
+@{
+    ViewBag.Title = "Tutors";
+}
+
+<h2>Tutors</h2>
+<button class="btn btn-default btn-sm">
+    <span class="glyphicon glyphicon-plus"></span>
+    @Html.ActionLink(
+                linkText: "Add Tutor",
+                actionName: "Create",
+                controllerName: "Tutor",
+                routeValues: new
+                {
+                },
+                htmlAttributes: new
+                {
+                    @class = "",
+                    target = "_blank",
+                }
+            )
+</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>Post code</th>
+            <th>Town</th>
+         
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tutor in Model)
+        {
+            <tr>
+                <td>@tutor.FirstName</td>
+                <td>@tutor.LastName</td>
+                <td>@tutor.Address</td>
+                <td>@tutor.PostCode</td>
+                <td>@tutor.Town</td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Tutor",
+                    routeValues: new
+                      {
+                          id = @tutor.Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "Edit",
+                    actionName: "Edit",
+                    controllerName: "Tutor",
+                    routeValues: new
+                      {
+                          id = @tutor.Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
