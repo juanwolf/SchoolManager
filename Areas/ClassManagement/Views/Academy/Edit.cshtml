@@ -1,0 +1,16 @@
+﻿@model SchoolManager.Areas.ClassManagement.Models.AcademyModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@{Html.BeginForm("Edit", "Academy");}
+@Html.HiddenFor(t => t.Id)
+
+@Html.LabelFor(t => t.Name)
+@Html.TextBoxFor(t => t.Name)
+
+
+<input type="submit" value="Valider" />
+@{Html.EndForm();}

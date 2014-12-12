@@ -1,0 +1,62 @@
+﻿@model SchoolManager.Areas.ClassManagement.Models.AcademyModel
+@{
+    ViewBag.Title = "Read";
+}
+
+<h2>Academy of @Model.Name</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>PostCode</th>
+            <th>Town</th>
+            <th>
+                <button class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    @Html.ActionLink(
+                    linkText: "Add Establishment",
+                    actionName: "Create",
+                    controllerName: "Establishment",
+                    routeValues: new
+                    {
+                        
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "",
+                        target = "_blank",
+                    }
+                )
+                </button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var establishment in Model.establishments)
+        {
+            <tr>
+                <td>@establishment.Name</td>
+                <td>@establishment.Address</td>
+                <td>@establishment.PostCode</td>
+                <td>@establishment.Town</td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Establishment",
+                    routeValues: new
+                      {
+                          id=@establishment.id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
