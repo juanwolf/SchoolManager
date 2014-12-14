@@ -44,7 +44,24 @@
     <thead>
         <tr>
             <th>Title</th>
+        <th>
+            @Html.ActionLink(
+                    linkText: "Add Classroom",
+                    actionName: "Create",
+                    controllerName: "Classroom",
+                    routeValues: new
+                    {
+                        area = "ClassManagement",
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "btn btn-default btn-sm",
+                        target = "_blank",
+                    }
+                )
+    </th>
         </tr>
+       
     </thead>
     <tbody>
         @foreach (var classroom in Model.classrooms)
