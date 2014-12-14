@@ -24,6 +24,5 @@ namespace SchoolManager.Areas.ClassManagement.Models
         {
             return context.Users.Where(u => u.Id == id);
         }
-
     }
 }

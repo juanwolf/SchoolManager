@@ -10,6 +10,7 @@
                 <th>Title</th>
                 <th>User</th>
                 <th>Year</th>
+                <th>Teacher</th>
                 <th>Establishment</th>
                 <th>
                     @Html.ActionLink(
@@ -68,6 +69,19 @@
                 )
                 </td>
                 <td>@classroom.User_Name</td>
+                <td>@Html.ActionLink(
+                    linkText: @classroom.Establishment_Name,
+                    actionName: "Read",
+                    controllerName: "Establishment",
+                    routeValues: new
+                      {
+                          id = @classroom.Establishment_Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )</td>
                 <td>
                     @Html.ActionLink(
                     linkText: "See",

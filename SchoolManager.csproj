@@ -369,6 +369,7 @@
     <Content Include="Areas\ClassManagement\Views\Establishment\Edit.cshtml" />
     <Content Include="Areas\ClassManagement\Views\Establishment\Create.cshtml" />
     <Content Include="Areas\ClassManagement\Views\Classroom\Index.cshtml" />
+    <Content Include="Areas\ClassManagement\Views\Classroom\Create.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\jquery-1.11.js" />

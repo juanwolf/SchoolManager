@@ -36,5 +36,15 @@ namespace SchoolManager.Models
         {
             return context.Classrooms.Where(c => c.Establishment_Id == id);
         }
+
+        public void Add(Classroom c)
+        {
+            context.Classrooms.Add(c);
+        }
+
+        public void Save()
+        {
+            context.SaveChanges();
+        }
     }
 }
