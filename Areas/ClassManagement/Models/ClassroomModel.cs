@@ -36,5 +36,35 @@ namespace SchoolManager.Models
             get;
             set;
         }
+
+        public String Establishment_Name
+        {
+            get;
+            set;
+        }
+
+        public string User_Name
+        {
+            get;
+            set;
+        }
+
+        public String Year1 
+        { 
+            get;
+            set;
+        }
+
+        public List<PupilModel> pupils 
+        { 
+            get;
+            set;
+        }
+
+        public List<EvaluationModel> evaluations
+        {
+            get;
+            set;
+        }
     }
 }
