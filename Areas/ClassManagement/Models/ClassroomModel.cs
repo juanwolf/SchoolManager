@@ -49,7 +49,7 @@ namespace SchoolManager.Models
             set;
         }
 
-        public String Year1 
+        public int Year1 
         { 
             get;
             set;
