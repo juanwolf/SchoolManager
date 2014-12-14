@@ -1,5 +1,41 @@
-﻿@{
+﻿@model SchoolManager.Areas.ClassManagement.Models.EstablishmentModel
+@{
     ViewBag.Title = "Read";
 }
+<table class="table">
+<thead>
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>PostCode</th>
+        <th>Town</th>
+        <th>User</th>
+        <th>Academy</th>
+    </tr>
+</thead>
+<tbody>
 
-<h2>Read</h2>
+    <tr>
+        <td>@Model.Name</td>
+        <td>@Model.Address</td>
+        <td>@Model.PostCode</td>
+        <td>@Model.Town</td>
+        <td>@Model.UserName</td>
+        <td>@Html.ActionLink(
+                linkText: @Model.AcademyName,
+                actionName: "Read",
+                controllerName: "Academy",
+                routeValues: new
+                {
+                    id = @Model.Academie_Id
+                },
+                htmlAttributes: new
+                {
+                    @class = "",
+                    target = "_blank",
+                }
+            )</td>
+        
+    </tr>
+</tbody>
+</table>

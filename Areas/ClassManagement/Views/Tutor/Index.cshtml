@@ -4,23 +4,7 @@
 }
 
 <h2>Tutors</h2>
-<button class="btn btn-default btn-sm">
-    <span class="glyphicon glyphicon-plus"></span>
-    @Html.ActionLink(
-                linkText: "Add Tutor",
-                actionName: "Create",
-                controllerName: "Tutor",
-                routeValues: new
-                {
-                },
-                htmlAttributes: new
-                {
-                    @class = "",
-                    target = "_blank",
-                }
-            )
-</button>
-
+   
 <table class="table">
     <thead>
         <tr>
@@ -29,7 +13,20 @@
             <th>Address</th>
             <th>Post code</th>
             <th>Town</th>
-         
+            <th>@Html.ActionLink(
+                linkText: "Add Tutor",
+                actionName: "Create",
+                controllerName: "Tutor",
+                routeValues: new
+                {
+                },
+                htmlAttributes: new
+                {
+                    @class = "btn btn-default btn-sm",
+                    target = "_blank",
+                }
+            )
+</th>      
             
         </tr>
     </thead>

@@ -13,8 +13,7 @@
             <th>Birthday Date</th>
             <th>State</th>
             <th>
-                <button class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-plus"></span>
+               
                     @Html.ActionLink(
                     linkText: "Add Pupil",
                     actionName: "Create",
@@ -24,12 +23,11 @@
                     },
                     htmlAttributes: new
                     {
-                        @class = "",
+                        @class = "btn btn-default",
                         target = "_blank",
                     }
                 )
-                </button>
-        </th>
+         </th>
     </tr>
 </thead>
 <tbody>

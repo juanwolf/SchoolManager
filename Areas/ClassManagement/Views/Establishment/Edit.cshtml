@@ -1,5 +1,50 @@
-﻿@{
-    ViewBag.Title = "Edit";
+﻿@model SchoolManager.Areas.ClassManagement.Models.EstablishmentModel
+@{
+    ViewBag.Title = "Edit - Establishment";
 }
 
-<h2>Edit</h2>
+<h2>Edit Establishment</h2>
+@{Html.BeginForm("Edit", "Establishment");}
+@Html.HiddenFor(t => t.id)
+
+@Html.LabelFor(t => t.Name)
+@Html.TextBoxFor(t => t.Name)
+
+@Html.LabelFor(t => t.Address)
+@Html.TextBoxFor(t => t.Address)
+
+@Html.LabelFor(t => t.PostCode)
+@Html.TextBoxFor(t => t.PostCode)
+
+@Html.LabelFor(t => t.Town)
+@Html.TextBoxFor(t => t.Town)
+<span>Academy</span>
+<select id="Academie_Id" name="Academie_Id">
+    @foreach (var academy in (List<SchoolManager.Areas.ClassManagement.Models.AcademyModel>)ViewData["academies"])
+    {
+        if (academy.Id == @Model.Academie_Id)
+        {
+            <option selected="selected" value="@academy.Id">@academy.Name</option>
+        }
+        <option value="@academy.Id">@academy.Name</option>
+    }
+</select>
+<span>User</span>
+<select id="User_Id" name="User_Id">
+    @foreach (var user in (List<SchoolManager.Areas.ClassManagement.Models.UserModel>)ViewData["users"])
+    {
+        if (user.Id == @Model.User_Id)
+        {
+            <option value="@user.Id">@user.FirstName  @user.LastName</option>
+        } 
+        else
+        { 
+        <option value="@user.Id">@user.FirstName  @user.LastName</option>
+        }
+    }
+</select>
+
+
+
+<input type="submit" value="Valider" />
+@{Html.EndForm();}

@@ -191,6 +191,8 @@
     <Compile Include="Areas\ClassManagement\Models\AcademyRepository.cs" />
     <Compile Include="Areas\ClassManagement\Models\EstablishmentModel.cs" />
     <Compile Include="Areas\ClassManagement\Models\EstablishmentRepository.cs" />
+    <Compile Include="Areas\ClassManagement\Models\UserModel.cs" />
+    <Compile Include="Areas\ClassManagement\Models\UserRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Administration\Controllers\CycleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

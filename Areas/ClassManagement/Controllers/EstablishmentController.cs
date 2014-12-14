@@ -13,11 +13,16 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
         //
         // GET: /ClassManagement/Establishment/
 
-        /*public void convertEstablishmentModelToEstablishment(EstablishmentModel academy, Establishment a)
+        public void convertEstablishmentModelToEstablishment(EstablishmentModel establishment, Establishment e)
         {
-            a.Id = academy.Id;
-            a.Name = academy.Name;
-        }*/
+            e.Id = establishment.id;
+            e.Name = establishment.Name;
+            e.Address = establishment.Address;
+            e.PostCode = establishment.PostCode;
+            e.Town = establishment.Town;
+            e.User_Id = establishment.User_Id;
+            e.Academie_Id = establishment.Academie_Id;
+        }
 
         public ActionResult Index()
         {
@@ -25,7 +30,6 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
             {
                 var repo = new EstablishmentRepository(entity);
                 var repoAcademy = new AcademyRepository(entity);
-                
                 List<EstablishmentModel> establishments = repo.All().Join(entity.Academies,
                     (e => e.Academie_Id), (ac => ac.Id), (e, ac) => new EstablishmentModel
                     {
@@ -37,21 +41,18 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     Academie_Id = e.Academie_Id,
                     AcademyName = ac.Name
                     }).ToList();
+
                 return View(establishments);
             };
         }
-        /*public ActionResult Read(Guid id)
+        public ActionResult Read(Guid id)
         {
             using (var entity = new Entities())
             {
                 var establishmentRepo = new EstablishmentRepository(entity);
                 var academyRepo = new AcademyRepository(entity);
-                AcademyModel academy = academyRepo.getById(id).Select(a => new AcademyModel
-                {
-                    Id = a.Id,
-                    Name = a.Name
-                }).First();
-                List<EstablishmentModel> establishments = establishmentRepo.getByAcademy(id).Select(p => new EstablishmentModel
+                var UserRepo = new UserRepository(entity);
+                EstablishmentModel establishment = establishmentRepo.getById(id).Select(p => new EstablishmentModel
                 {
                     id = p.Id,
                     Name = p.Name,
@@ -60,36 +61,63 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     Town = p.Town,
                     User_Id = p.User_Id,
                     Academie_Id = p.Academie_Id
-                }).ToList();
-                academy.establishments = establishments;
-                return View(academy);
+                }).First();
+                AcademyModel academy = academyRepo.getById(establishment.Academie_Id).Select(a => new AcademyModel
+                {
+                    Id = a.Id,
+                    Name = a.Name
+                }).First();
+                establishment.AcademyName = academy.Name;
+                UserModel user = UserRepo.getById(establishment.User_Id).Select(a => new UserModel
+                {
+                    Id = a.Id,
+                    FirstName = a.FirstName,
+                    LastName = a.LastName
+                }).First();
+                establishment.UserName = user.FirstName + " " + user.LastName;
+
+                return View(establishment);
             }
         }
 
         [HttpGet]
         public ActionResult Create()
         {
-            AcademyModel academy = new AcademyModel();
-            return View(academy);
+            using (var entity = new Entities()) {
+                EstablishmentModel establishment = new EstablishmentModel();
+                AcademyRepository academy = new AcademyRepository(entity);
+                UserRepository userRepo = new UserRepository(entity);
+                ViewData["academies"] = academy.All().Select(u => new AcademyModel {
+                    Id = u.Id,
+                    Name = u.Name
+                }).ToList();
+                ViewData["users"] = userRepo.All().Select(u => new UserModel {
+                    Id = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                }).ToList();
+                return View(establishment);
+            }
         }
 
         [HttpPost]
-        public ActionResult Create(AcademyModel academy)
+        public ActionResult Create(EstablishmentModel establishment)
         {
             if (ModelState.IsValid)
             {
                 using (var entity = new Entities())
                 {
-                    AcademyRepository repo = new AcademyRepository(entity);
-                    academy.Id = Guid.NewGuid();
-                    Academy a = new Academy();
-                    convertAcademyModelToAcademy(academy, a);
-                    repo.Add(a);
+                    EstablishmentRepository repo = new EstablishmentRepository(entity);
+
+                    establishment.id = Guid.NewGuid();
+                    Establishment e = new Establishment();
+                    convertEstablishmentModelToEstablishment(establishment, e);
+                    repo.Add(e);
                     repo.Save();
                 }
 
             }
-            return View("~/Areas/ClassManagement/Views/Academy/Read.cshtml", academy.Id);
+            return View("~/Areas/ClassManagement/Views/Establishment/Read.cshtml", establishment.id);
         }
 
         [HttpGet]
@@ -97,31 +125,49 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
         {
             using (var entity = new Entities())
             {
-                AcademyRepository repo = new AcademyRepository(entity);
-                AcademyModel academy = repo.getById(id).Select(a => new AcademyModel
+                EstablishmentRepository repo = new EstablishmentRepository(entity);
+                EstablishmentModel establishment = repo.getById(id).Select(a => new EstablishmentModel
                 {
-                    Id = a.Id,
-                    Name = a.Name
+                    id = a.Id,
+                    Name = a.Name,
+                    Address = a.Address,
+                    PostCode = a.PostCode,
+                    Town = a.Town,
+                    Academie_Id = a.Academie_Id,
+                    User_Id = a.User_Id
                 }).First();
-                return View("~/Areas/ClassManagement/Views/Academy/Edit.cshtml", academy);
+                AcademyRepository academy = new AcademyRepository(entity);
+                UserRepository userRepo = new UserRepository(entity);
+                ViewData["academies"] = academy.All().Select(u => new AcademyModel
+                {
+                    Id = u.Id,
+                    Name = u.Name
+                }).ToList();
+                ViewData["users"] = userRepo.All().Select(u => new UserModel
+                {
+                    Id = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                }).ToList();
+                return View("~/Areas/ClassManagement/Views/Establishment/Edit.cshtml", establishment);
             }
         }
 
         [HttpPost]
-        public ActionResult Edit(AcademyModel academy)
+        public ActionResult Edit(EstablishmentModel establishment)
         {
             if (ModelState.IsValid)
             {
                 using (var entity = new Entities())
                 {
-                    AcademyRepository repo = new AcademyRepository(entity);
-                    Academy a = repo.getById(academy.Id).First();
-                    convertAcademyModelToAcademy(academy, a);
+                    EstablishmentRepository repo = new EstablishmentRepository(entity);
+                    Establishment e = repo.getById(establishment.id).First();
+                    convertEstablishmentModelToEstablishment(establishment, e);
                     repo.Save();
                 }
 
             }
-            return View("~/Areas/ClassManagement/Views/Academy/Read.cshtml", academy);
-        }*/
+            return View("~/Areas/ClassManagement/Views/Establishment/Read.cshtml", establishment);
+        }
     }
 }
