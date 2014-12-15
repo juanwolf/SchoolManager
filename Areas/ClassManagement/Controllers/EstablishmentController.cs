@@ -50,6 +50,7 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
             using (var entity = new Entities())
             {
                 var establishmentRepo = new EstablishmentRepository(entity);
+                var classroomRepo = new ClassroomRepository(entity);
                 var academyRepo = new AcademyRepository(entity);
                 var UserRepo = new UserRepository(entity);
                 EstablishmentModel establishment = establishmentRepo.getById(id).Select(p => new EstablishmentModel
@@ -60,7 +61,7 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     Address = p.Address,
                     Town = p.Town,
                     User_Id = p.User_Id,
-                    Academie_Id = p.Academie_Id
+                    Academie_Id = p.Academie_Id,
                 }).First();
                 AcademyModel academy = academyRepo.getById(establishment.Academie_Id).Select(a => new AcademyModel
                 {
@@ -74,6 +75,17 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     FirstName = a.FirstName,
                     LastName = a.LastName
                 }).First();
+                establishment.Classrooms = classroomRepo.getByEstablishment(id).Select(c => new ClassroomModel
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    User_Id = c.User_Id,
+                    Year_Id = c.Year_Id,
+                    Establishment_Id = c.Establishment_Id,
+                    Establishment_Name = c.Establishment.Name,
+                    Year1 = c.Year.Year1,
+                    User_Name = c.User.FirstName + " " + c.User.LastName
+                }).ToList();
                 establishment.UserName = user.FirstName + " " + user.LastName;
 
                 return View(establishment);

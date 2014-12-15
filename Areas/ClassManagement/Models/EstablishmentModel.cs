@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -56,6 +57,12 @@ namespace SchoolManager.Areas.ClassManagement.Models
         }
 
         public String AcademyName
+        {
+            get;
+            set;
+        }
+
+        public List<ClassroomModel> Classrooms
         {
             get;
             set;

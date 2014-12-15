@@ -1,0 +1,44 @@
+﻿@model SchoolManager.Models.ClassroomModel
+@{
+    ViewBag.Title = "Create - Classroom";
+    var establishmentDico = (Dictionary<SchoolManager.Areas.ClassManagement.Models.EstablishmentModel,
+        SchoolManager.Areas.ClassManagement.Models.UserModel>)ViewData["establishmentManager"];
+}
+
+<h2>Edit Classroom</h2>
+@{Html.BeginForm("Edit", "Classroom", FormMethod.Post, new { @class = "form-horizontal" });}
+@Html.HiddenFor(t => t.Id)
+
+@Html.LabelFor(t => t.Title)
+@Html.TextBoxFor(t => t.Title, new { @class = "form-control" })
+
+<label>Establishment and teacher</label>
+<select class="form-control" id="Establishment_Id" name="Establishment_Id">
+    @foreach (var establishment in establishmentDico.Keys)
+    {
+        if (@establishment.id == @Model.Establishment_Id)
+        {
+            <option selected="selected" value="@establishment.id">@establishment.Name with @establishmentDico[establishment].FirstName @establishmentDico[establishment].LastName</option>
+        }
+        else
+        {
+            <option value="@establishment.id">@establishment.Name with @establishmentDico[establishment].FirstName @establishmentDico[establishment].LastName</option>
+        }
+    }
+</select>
+
+<label for="Year_Id" class="">Year</label>
+<select class="form-control" id="Year_Id" name="Year_Id">
+    @foreach (var year in (List<SchoolManager.Models.YearModel>)ViewData["years"])
+    {
+        if(@year.Id == Model.Year_Id){
+            <option selected="selected" value="@year.Id">@year.Year1</option>
+        } else {
+            <option value="@year.Id">@year.Year1</option>
+        }
+    }
+</select>
+
+
+<input class="btn btn-primary" type="submit" value="Valider" />
+@{Html.EndForm();}

@@ -72,9 +72,10 @@
                     @Html.ActionLink(
                     linkText: "See",
                     actionName: "Read",
-                    controllerName: "Period",
+                    controllerName: "Classroom",
                     routeValues: new
                       {
+                          area= "ClassManagement",
                           id = classroom.Id
                       },
                       htmlAttributes: null
@@ -84,4 +85,7 @@
         }
     </tbody>
 </table>
+
+
+
 

@@ -5,12 +5,12 @@
         SchoolManager.Areas.ClassManagement.Models.UserModel>) ViewData["establishmentManager"];
 }
 
-<h2>New Establishment</h2>
+<h2>New Classroom</h2>
 @{Html.BeginForm("Create", "Classroom", FormMethod.Post, new { @class="form-horizontal"});}
 @Html.HiddenFor(t => t.Id)
 
-    @Html.LabelFor(t => t.Title)
-    @Html.TextBoxFor(t => t.Title, new { @class="form-control" })
+@Html.LabelFor(t => t.Title)
+@Html.TextBoxFor(t => t.Title, new { @class="form-control" })
 
 <label>Establishment and teacher</label>
 <select class="form-control" id="Establishment_Id" name="Establishment_Id">

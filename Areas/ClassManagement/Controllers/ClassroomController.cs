@@ -30,49 +30,21 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                 var establishmentRepo = new EstablishmentRepository(entity);
                 var yearRepo = new YearRepository(entity);
                 var userRepo = new UserRepository(entity);
-                var query_classrooms =
-                    from classroom in entity.Classrooms
-                    join establishment in entity.Establishments
-                        on classroom.Establishment_Id equals establishment.Id
-                    join year in entity.Years
-                        on classroom.Year_Id equals year.Id
-                    join user in entity.Users
-                        on classroom.User_Id equals user.Id
-                    select new ClassroomModel {
-                        Id = classroom.Id,
-                        Title = classroom.Title,
-                        User_Id = classroom.User_Id,
-                        Year_Id = classroom.Year_Id,
-                        Establishment_Id = classroom.Establishment_Id,
-                        Establishment_Name = establishment.Name,
-                        Year1 = year.Year1,
-                        User_Name = user.FirstName + " " + user.LastName,
-                    };
-                List<ClassroomModel> classrooms = query_classrooms.ToList();
-                /*List<ClassroomModel> classrooms = repo.All().Join(entity.Establishments,
-                    c => c.Establishment_Id,
-                    e => e.Id,
-                    (c, e) => new ClassroomModel
-                    {
-                        Id = c.Id,
-                        Title = c.Title,
-                        User_Id = c.User_Id,
-                        Year_Id = c.Year_Id,
-                        Establishment_Id = c.Establishment_Id,
-                        Establishment_Name = establishmentRepo.getById(c.Establishment_Id).First().Name
-                    }).Join(entity.Years,
-                    c => c.Establishment_Id,
-                    e => e.Id,
-                    (c, e) => new ClassroomModel).ToList();
-                User_Name =
-                            userRepo.getById(c.User_Id).First().FirstName 
-                            + " "
-                            + userRepo.getById(c.User_Id).First().LastName,
-                        Year1 = yearRepo.getById(c.Year_Id).First().Year1,
-                        */
+                List<ClassroomModel> classrooms = repo.All().Select(c => new ClassroomModel
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    User_Id = c.User_Id,
+                    Year_Id = c.Year_Id,
+                    Establishment_Id = c.Establishment_Id,
+                    Establishment_Name = c.Establishment.Name,
+                    Year1 = c.Year.Year1,
+                    User_Name = c.User.FirstName + " " + c.User.LastName,
+                }).ToList();
                 return View(classrooms);
             };
         }
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -104,20 +76,10 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     Id = y.Id,
                     Year1 = y.Year1
                 }).ToList();
-                /*ViewData["users"] = userRepo.All().Select(u => new UserModel
-                {
-                    Id = u.Id,
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                }).ToList();
-                ViewData["establishments"] = establishmentRepo.All().Select(u => new EstablishmentModel
-                {
-                    id = u.Id,
-                    Name = u.Name
-                }).ToList();*/
                 return View(classroom);
             }
         }
+
         [HttpPost]
         public ActionResult Create(ClassroomModel classroom)
         {
@@ -127,16 +89,110 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                 {
                     ClassroomRepository repo = new ClassroomRepository(entity);
                     EstablishmentRepository establishmentRepo = new EstablishmentRepository(entity);
+                    UserRepository userRepo = new UserRepository(entity);
                     classroom.User_Id = establishmentRepo.getById(classroom.Establishment_Id).First().User_Id;
+                    classroom.Establishment_Name = establishmentRepo.getById(classroom.Establishment_Id).First().Name;
+                    classroom.pupils = new List<PupilModel>();
+                    classroom.User_Name = userRepo.getById(classroom.User_Id).First().FirstName + " " + userRepo.getById(classroom.User_Id).First().LastName;
                     classroom.Id = Guid.NewGuid();
                     Classroom c = new Classroom();
                     convertClassroomModelToClassroom(classroom, c);
                     repo.Add(c);
                     repo.Save();
+                    return View("~/Areas/ClassManagement/Views/Classroom/Read.cshtml", classroom);
                 }
 
             }
-            return View("~/Areas/ClassManagement/Views/Classroom/Read.cshtml", classroom.Id);
+            else
+            {
+                return View("~/Areas/ClassManagement/Views/Classroom/Create.cshtml", classroom);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Read(Guid id)
+        {
+            using (var entity = new Entities())
+            {
+                ClassroomRepository repo = new ClassroomRepository(entity);
+                ClassroomModel classroom = repo.getById(id).Select(c => new ClassroomModel
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    User_Id = c.User_Id,
+                    Year_Id = c.Year_Id,
+                    Establishment_Id = c.Establishment_Id,
+                    Establishment_Name = c.Establishment.Name,
+                    Year1 = c.Year.Year1,
+                    User_Name = c.User.FirstName + " " + c.User.LastName,
+                }).First();
+                classroom.pupils = new List<PupilModel>();
+                return View(classroom);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Edit(Guid id)
+        {
+            using (var entity = new Entities())
+            {
+                ClassroomRepository repo = new ClassroomRepository(entity);
+                ClassroomModel classroom = repo.getById(id).Select(c => new ClassroomModel
+                {
+                    Id = c.Id,
+                    Establishment_Id = c.Establishment_Id,
+                    Title = c.Title,
+                    Year_Id = c.Year_Id,
+                    User_Id = c.User_Id
+                }).First();
+                EstablishmentRepository establishmentRepo = new EstablishmentRepository(entity);
+                UserRepository userRepo = new UserRepository(entity);
+                YearRepository yearRepo = new YearRepository(entity);
+                Dictionary<EstablishmentModel, UserModel> establishmentManager = new Dictionary<EstablishmentModel, UserModel>();
+                
+                var establishments = establishmentRepo.All().Select(u => new EstablishmentModel
+                {
+                    id = u.Id,
+                    Name = u.Name,
+                    User_Id = u.User_Id
+                }).ToList();
+                foreach (EstablishmentModel establishment in establishments)
+                {
+                    UserModel user = userRepo.getById(establishment.User_Id).Select(u => new UserModel
+                    {
+                        FirstName = u.FirstName,
+                        LastName = u.LastName,
+                        Id = u.Id
+                    }).First();
+                    establishmentManager[establishment] = user;
+                }
+                ViewData["establishmentManager"] = establishmentManager;
+                ViewData["years"] = yearRepo.All().Select(y => new YearModel
+                {
+                    Id = y.Id,
+                    Year1 = y.Year1
+                }).ToList();
+                return View("~/Areas/ClassManagement/Views/Classroom/Edit.cshtml", classroom);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(ClassroomModel classroom)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var entity = new Entities())
+                {
+                    ClassroomRepository repo = new ClassroomRepository(entity);
+                    EstablishmentRepository establishmentRepo = new EstablishmentRepository(entity);
+                    classroom.User_Id = establishmentRepo.getById(classroom.Establishment_Id).First().User_Id;
+                    Classroom c = repo.getById(classroom.Id).First();
+                    convertClassroomModelToClassroom(classroom, c);
+                    repo.Save();
+                }
+
+            }
+            return RedirectToAction("Index"); ;
         }
     }
 }

@@ -8,7 +8,6 @@
         <thead>
             <tr>
                 <th>Title</th>
-                <th>User</th>
                 <th>Year</th>
                 <th>Teacher</th>
                 <th>Establishment</th>
@@ -37,28 +36,13 @@
                     
                 <td>@classroom.Title</td>
                 <td>
-                        @Html.ActionLink(
-                    linkText: classroom.Establishment_Name,
-                    actionName: "Read",
-                    controllerName: "Establishment",
-                    routeValues: new
-                    {
-                        id = @classroom.Establishment_Id
-                    },
-                    htmlAttributes: new
-                    {
-                        @class = "",
-                        target = "_blank",
-                    }
-                )
-                </td>
-                <td>
                     @Html.ActionLink(
                     linkText: classroom.Year1.ToString(),
                     actionName: "Read",
                     controllerName: "Year",
                     routeValues: new
                     {
+                        area="Administration",
                         id = @classroom.Year_Id
                     },
                     htmlAttributes: new
