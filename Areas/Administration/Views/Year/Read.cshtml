@@ -17,8 +17,8 @@
         @foreach (var period in Model.periods)
         {
             <tr>
-                <td>@period.Begin.ToString()</td>
-                <td>@period.End.ToString()</td>
+                <td>@period.Begin.ToShortDateString()</td>
+                <td>@period.End.ToShortDateString()</td>
                 <td>
                     @Html.ActionLink(
                     linkText: "See",
@@ -44,24 +44,23 @@
     <thead>
         <tr>
             <th>Title</th>
-        <th>
-            @Html.ActionLink(
-                    linkText: "Add Classroom",
-                    actionName: "Create",
-                    controllerName: "Classroom",
-                    routeValues: new
-                    {
-                        area = "ClassManagement",
-                    },
-                    htmlAttributes: new
-                    {
-                        @class = "btn btn-default btn-sm",
-                        target = "_blank",
-                    }
-                )
-    </th>
+            <th>
+                @Html.ActionLink(
+                        linkText: "Add Classroom",
+                        actionName: "Create",
+                        controllerName: "Classroom",
+                        routeValues: new
+                        {
+                            area = "ClassManagement",
+                        },
+                        htmlAttributes: new
+                        {
+                            @class = "btn btn-default btn-sm",
+                            target = "_blank",
+                        }
+                    )
+            </th>
         </tr>
-       
     </thead>
     <tbody>
         @foreach (var classroom in Model.classrooms)
