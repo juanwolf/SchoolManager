@@ -3,7 +3,7 @@
     ViewBag.Title = "Read";
 }
 
-<h2>Academy of @Model.Name</h2>
+<h2>Etasblihsments of academy of @Model.Name</h2>
 
 <table class="table">
     <thead>
@@ -13,9 +13,7 @@
             <th>PostCode</th>
             <th>Town</th>
             <th>
-                <button class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    @Html.ActionLink(
+                @Html.ActionLink(
                     linkText: "Add Establishment",
                     actionName: "Create",
                     controllerName: "Establishment",
@@ -25,7 +23,7 @@
                     },
                     htmlAttributes: new
                     {
-                        @class = "",
+                        @class = "btn btn-default btn-sm",
                         target = "_blank",
                     }
                 )
