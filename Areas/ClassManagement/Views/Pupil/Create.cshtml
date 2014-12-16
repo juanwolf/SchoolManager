@@ -7,7 +7,7 @@
 }
 
 <h2>New Pupil</h2>
-@{Html.BeginForm("Create", "Classroom", FormMethod.Post, new { @class = "form-horizontal" });}
+@{Html.BeginForm("Create", "Pupil", FormMethod.Post, new { @class = "form-horizontal" });}
 @Html.HiddenFor(p => p.Id)
 
 @Html.LabelFor(p => p.FirstName)

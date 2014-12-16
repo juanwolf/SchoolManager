@@ -11,6 +11,19 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
     {
         //
         // GET: /Pupil/
+        public void convertPupilModelToPupil(PupilModel pupil, Pupil p)
+        {
+            p.Id = pupil.Id;
+            p.LastName = pupil.LastName;
+            p.FirstName = pupil.FirstName;
+            p.Classroom_Id = pupil.Classroom_Id;
+            p.Sex = pupil.Sex;
+            p.State = 1;
+            p.BirthdayDate = pupil.BirthdayDate;
+            p.Tutor_Id = pupil.Tutor_Id;
+            p.Level_Id = pupil.Level_Id;
+            p.Classroom_Id = pupil.Classroom_Id;
+        }
 
         public ActionResult Index()
         {
@@ -27,7 +40,10 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     State = p.State,
                     Tutor_Id = p.Tutor_Id,
                     Classroom_Id = p.Classroom_Id,
-                    Level_Id = p.Level_Id
+                    Level_Id = p.Level_Id,
+                    TutorName = p.Tutor.FirstName + " " + p.Tutor.LastName,
+                    LevelTitle = p.Level.Title,
+                    ClassroomTitle = p.Classroom.Title
                 }).ToList();
                 return View(pupils);
             }
@@ -74,35 +90,28 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
             }
         }
 
-        /*[HttpPost]
-        public ActionResult Create(PupilModel classroom)
+        [HttpPost]
+        public ActionResult Create(PupilModel pupil)
         {
             if (ModelState.IsValid)
             {
                 using (var entity = new Entities())
                 {
                     PupilRepository repo = new PupilRepository(entity);
-                    EstablishmentRepository establishmentRepo = new EstablishmentRepository(entity);
-                    UserRepository userRepo = new UserRepository(entity);
-                    classroom.User_Id = establishmentRepo.getById(classroom.Establishment_Id).First().User_Id;
-                    classroom.Establishment_Name = establishmentRepo.getById(classroom.Establishment_Id).First().Name;
-                    classroom.pupils = new List<PupilModel>();
-                    classroom.evaluations = new List<EvaluationModel>();
-                    classroom.User_Name = userRepo.getById(classroom.User_Id).First().FirstName + " " + userRepo.getById(classroom.User_Id).First().LastName;
-                    classroom.Id = Guid.NewGuid();
-                    Pupil c = new Pupil();
-                    convertPupilModelToPupil(classroom, c);
-                    repo.Add(c);
+                    pupil.Id = Guid.NewGuid();
+                    Pupil p = new Pupil();
+                    convertPupilModelToPupil(pupil, p);
+                    repo.Add(p);
                     repo.Save();
-                    return View("~/Areas/ClassManagement/Views/Pupil/Read.cshtml", classroom);
+                    return View("~/Areas/ClassManagement/Views/Pupil/Read.cshtml", pupil);
                 }
 
             }
             else
             {
-                return View("~/Areas/ClassManagement/Views/Pupil/Create.cshtml", classroom);
+                return View("~/Areas/ClassManagement/Views/Pupil/Create.cshtml", pupil);
             }
-        }*/
+        }
 
 
     }

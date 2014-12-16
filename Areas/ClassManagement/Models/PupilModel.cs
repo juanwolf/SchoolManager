@@ -41,7 +41,7 @@ namespace SchoolManager.Models
             get; set;
         }
 
-        public int Sex
+        public short Sex
         {
             get;
             set;
@@ -79,7 +79,7 @@ namespace SchoolManager.Models
 
         public List<ResultModel> resultats;
         
-        public PupilModel(Guid id, String FirstName, String LastName, int Sex, DateTime date, int State, Guid Tutor_Id, Guid Classroom_Id, Guid Level_id ) {
+        public PupilModel(Guid id, String FirstName, String LastName, short Sex, DateTime date, int State, Guid Tutor_Id, Guid Classroom_Id, Guid Level_id ) {
             Id = id;
             this.FirstName = FirstName;
             this.LastName = LastName;
