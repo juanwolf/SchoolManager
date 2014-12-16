@@ -17,7 +17,20 @@
         {
             <tr>
                 <td>
-                    @period.Year1
+                    @Html.ActionLink(
+                        linkText: @period.Year1.ToString(),
+                        actionName: "Read",
+                        controllerName: "Year",
+                        routeValues: new
+                        {
+                            id = @period.Year_Id
+                        },
+                        htmlAttributes: new
+                        {
+                            target = "_blank",
+                        }
+                    )
+                    
                 </td>
                 <td>
                     @period.Begin.ToShortDateString()
