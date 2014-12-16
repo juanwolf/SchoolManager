@@ -1,13 +1,11 @@
 ﻿@model SchoolManager.Models.TutorModel
 @{
-    ViewBag.Title = "Read";
+    ViewBag.Title = "Read - Tutor";
 }
-
+<h2>Tutor @Model.FirstName @Model.LastName </h2>
 <table class="table">
     <thead>
         <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
             <th>Address</th>
             <th>Post code</th>
             <th>Town</th>
@@ -18,8 +16,6 @@
     </thead>
     <tbody>
             <tr>
-                <td>@Model.FirstName</td>
-                <td>@Model.LastName</td>
                 <td>@Model.Address</td>
                 <td>@Model.PostCode</td>
                 <td>@Model.Town</td>
@@ -27,6 +23,62 @@
                 <th>@Model.Mail</th>
                 <th>@Model.Comment</th>
             </tr>
+    </tbody>
+</table>
+
+<h2>Pupils</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Sex</th>
+            <th>Birthday Date</th>
+            <th>State</th>
+            <th>
+
+                @Html.ActionLink(
+                    linkText: "Add Pupil",
+                    actionName: "Create",
+                    controllerName: "Pupil",
+                    routeValues: new
+                    {
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "btn btn-default",
+                        target = "_blank",
+                    }
+                )
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pupil in Model.pupils)
+        {
+            <tr>
+                <td>@pupil.FirstName</td>
+                <td>@pupil.LastName</td>
+                <td>@pupil.Sex</td>
+                <td>@pupil.BirthdayDate.ToString()</td>
+                <td>@pupil.State</td>
+                <!--<td>
+                    @Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Pupil",
+                    routeValues: new
+                      {
+                          id=@pupil.Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>-->
+            </tr>
+        }
     </tbody>
 </table>
 
