@@ -15,8 +15,7 @@
             <th>Classroom</th>
             <th>Level</th>
             <th>
-               
-                    @Html.ActionLink(
+                @Html.ActionLink(
                     linkText: "Add Pupil",
                     actionName: "Create",
                     controllerName: "Pupil",
@@ -30,6 +29,21 @@
                     }
                 )
          </th>
+            <th>
+                @Html.ActionLink(
+                    linkText: "Export Pupils",
+                    actionName: "GetPupils",
+                    controllerName: "Pupil",
+                    routeValues: new
+                    {
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "btn btn-default",
+                        target = "",
+                    }
+                )
+            </th>
     </tr>
 </thead>
 <tbody>
@@ -86,21 +100,36 @@
                      }
                 )
             </td>
-            <!--<td>
+            <td>
                 @Html.ActionLink(
-                linkText: "See",
-                actionName: "Read",
-                controllerName: "Pupil",
-                routeValues: new
-                  {
-                      id=@pupil.Id
-                  },
-                htmlAttributes: new
-                 {
-                     target = "_blank",
-                 }
-            )
-            </td>-->
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Pupil",
+                    routeValues: new
+                      {
+                          id=@pupil.Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+            </td>
+            <td>
+                @Html.ActionLink(
+                    linkText: "Edit",
+                    actionName: "Edit",
+                    controllerName: "Pupil",
+                    routeValues: new
+                      {
+                          id = @pupil.Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+            </td>
         </tr>
     }
 </tbody>
