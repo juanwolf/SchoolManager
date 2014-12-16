@@ -93,6 +93,7 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     classroom.User_Id = establishmentRepo.getById(classroom.Establishment_Id).First().User_Id;
                     classroom.Establishment_Name = establishmentRepo.getById(classroom.Establishment_Id).First().Name;
                     classroom.pupils = new List<PupilModel>();
+                    classroom.evaluations = new List<EvaluationModel>();
                     classroom.User_Name = userRepo.getById(classroom.User_Id).First().FirstName + " " + userRepo.getById(classroom.User_Id).First().LastName;
                     classroom.Id = Guid.NewGuid();
                     Classroom c = new Classroom();
@@ -115,6 +116,8 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
             using (var entity = new Entities())
             {
                 ClassroomRepository repo = new ClassroomRepository(entity);
+                PupilRepository pupilRepo = new PupilRepository(entity);
+                EvaluationRepository evaluationRepo = new EvaluationRepository(entity);
                 ClassroomModel classroom = repo.getById(id).Select(c => new ClassroomModel
                 {
                     Id = c.Id,
@@ -126,7 +129,26 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     Year1 = c.Year.Year1,
                     User_Name = c.User.FirstName + " " + c.User.LastName,
                 }).First();
-                classroom.pupils = new List<PupilModel>();
+                classroom.pupils = pupilRepo.getByClassroom(id).Select(p => new PupilModel{
+                    Id = p.Id,
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
+                    Sex = p.Sex,
+                    BirthdayDate = p.BirthdayDate,
+                    State = p.State,
+                    Tutor_Id = p.Tutor_Id,
+                    Classroom_Id = p.Classroom_Id,
+                    Level_Id = p.Level_Id
+                }).ToList();
+                classroom.evaluations = evaluationRepo.getByClassroom(id).Select(e => new EvaluationModel
+                {
+                    Id = e.Id,
+                    Classroom_Id = e.Classroom_Id,
+                    User_Id = e.User_Id,
+                    Period_Id = e.Period_Id,
+                    Date = e.Date,
+                    TotalPoint = e.TotalPoint
+                }).ToList();
                 return View(classroom);
             }
         }
