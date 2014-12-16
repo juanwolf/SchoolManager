@@ -3,7 +3,18 @@
     ViewBag.Title = "Period";
 }
 
-<h2>Period from @Model.Begin.ToShortDateString() to @Model.End.ToShortDateString() </h2>
+<h2>Period from @Model.Begin.Date.ToString("dd MMMM") to @Model.End.Date.ToString("dd MMMM")  in 
+    @Html.ActionLink(
+        linkText: @Model.Year1.ToString(),
+        actionName: "Read",
+        controllerName: "Year",
+        routeValues: new
+            {
+                id=@Model.Year_Id
+            },
+            htmlAttributes: null
+    )
+</h2>
 
 <h2>Evaluations</h2>
 <table class="table">
@@ -21,15 +32,15 @@
                 <td>@eval.TotalPoint</td>
                 <td>
                     @Html.ActionLink(
-                    linkText: "See",
-                    actionName: "Read",
-                    controllerName: "Evaluation",
-                    routeValues: new
-                      {
+                        linkText: "See",
+                        actionName: "Read",
+                        controllerName: "Evaluation",
+                        routeValues: new
+                          {
 
-                      },
-                      htmlAttributes: null
-                )
+                          },
+                          htmlAttributes: null
+                    )
                 </td>
             </tr>
         }
