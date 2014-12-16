@@ -1,0 +1,103 @@
+﻿@model SchoolManager.Models.PupilModel
+@{
+    ViewBag.Title = "Create - Pupil";
+    var tutors = (List<SchoolManager.Models.TutorModel>)ViewData["tutors"];
+    var classrooms = (List<SchoolManager.Models.ClassroomModel>)ViewData["classrooms"];
+    var levels = (List<SchoolManager.Models.LevelModel>)ViewData["levels"];
+    var date = Model.BirthdayDate.ToString("yyyy-MM-dd");
+}
+
+<h2>New Pupil</h2>
+@{Html.BeginForm("Edit", "Pupil", FormMethod.Post, new { @class = "form-horizontal" });}
+@Html.HiddenFor(p => p.Id)
+
+@Html.LabelFor(p => p.FirstName)
+@Html.TextBoxFor(p => p.FirstName, new { @class = "form-control" })
+
+@Html.LabelFor(p => p.LastName)
+@Html.TextBoxFor(p => p.LastName, new { @class = "form-control" })
+
+@Html.LabelFor(p => p.Sex)
+<div class="radio">
+    <label>
+        @if (@Model.Sex == 1)
+        {
+            <input checked="checked"  type="radio" value="1" id="Sex" name="Sex" />
+        }
+        else
+        {
+            <input  type="radio" value="1" id="Sex" name="Sex" />
+        }
+        Male
+    </label>
+</div>
+<div class="radio">
+    <label>
+        @if (@Model.Sex == 2)
+        {
+            <input checked="checked" type="radio" value="2" id="Sex" name="Sex" />
+        }
+        else
+        {
+            <input  type="radio" value="1" id="Sex" name="Sex" />
+        }
+        Female
+    </label>
+</div>
+@Html.LabelFor(p => p.BirthdayDate)
+<input type="date" class="form-control" placeholder="Birthday date" id="BirthdayDate" name="BirthdayDate" value="@date"/>
+
+<label>Level</label>
+<select class="form-control" id="Level_Id" name="Level_Id">
+    @foreach (var level in levels)
+    {
+        if (level.Id == @Model.Level_Id) { 
+            <option selected="selected" value="@level.Id">@level.Title | @level.CycleName</option>
+        }
+        else
+        {
+           <option value="@level.Id">@level.Title | @level.CycleName</option> 
+        }
+    }
+</select>
+
+
+<label>Tutor</label>
+<select class="form-control" id="Tutor_Id" name="Tutor_Id">
+    @foreach (var tutor in tutors)
+    {
+        if (tutor.Id == @Model.Tutor_Id) {
+            <option selected="selected" value="@tutor.Id">@tutor.FirstName @tutor.LastName</option>
+        }
+        else
+        {
+            <option selected="selected" value="@tutor.Id">@tutor.FirstName @tutor.LastName</option>
+        }
+    }
+</select>
+
+<label for="Classroom_Id" class="">Classroom</label>
+<select class="form-control" id="Classroom_Id" name="Classroom_Id">
+    @foreach (var classroom in classrooms)
+    {
+        if (classroom.Id == @Model.Classroom_Id) { 
+            <option selected="selected" value="@classroom.Id">@classroom.Title | @classroom.Establishment_Name | @classroom.User_Name | @classroom.Year1.ToString()</option>
+        }
+        else
+        {
+            <option value="@classroom.Id">@classroom.Title | @classroom.Establishment_Name | @classroom.User_Name | @classroom.Year1.ToString()</option>
+        }
+    }
+</select>
+<input class="btn btn-primary" type="submit" value="Valider" />
+@{Html.EndForm();}
+
+<!-- Script pour support Firefox -->
+<script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+<!-- polyfiller file to detect and load polyfills -->
+<script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+<script>
+    webshims.setOptions('waitReady', false);
+    webshims.setOptions('forms-ext', { types: 'date' });
+    webshims.polyfill('forms forms-ext');
+</script>
