@@ -47,6 +47,10 @@ namespace SchoolManager.Models
             set;
         }
 
+        public enum Sexes {
+            Male=1, Female
+        }
+
         public DateTime BirthdayDate
         {
             get;
