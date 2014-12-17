@@ -19,13 +19,49 @@ namespace SchoolManager.Models
             set;
         }
 
+        public String Classroom_Title
+        {
+            get;
+            set;
+        }
+
         public Guid User_Id
         {
             get;
             set;
         }
 
+        public String User_Name
+        {
+            get;
+            set;
+        }
+
         public Guid Period_Id
+        {
+            get;
+            set;
+        }
+
+        public DateTime Period_Begin
+        {
+            get;
+            set;
+        }
+
+        public DateTime Period_End
+        {
+            get;
+            set;
+        }
+
+        public int Year1
+        {
+            get;
+            set;
+        }
+
+        public Guid Year_Id
         {
             get;
             set;

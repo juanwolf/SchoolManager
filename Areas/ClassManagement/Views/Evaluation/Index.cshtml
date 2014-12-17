@@ -1,0 +1,124 @@
+﻿@model List<SchoolManager.Models.EvaluationModel>
+@{
+    ViewBag.Title = "Evaluations";
+}
+
+<h2>Evaluations</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Period</th>
+            <th>Classroom</th>
+            <th>User</th>
+            
+            <th>Date</th>
+            <th>TotalPoint</th>
+            <th>
+                @Html.ActionLink(
+                    linkText: "Add Evaluation",
+                    actionName: "Create",
+                    controllerName: "Evaluation",
+                    routeValues: new
+                    {
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "btn btn-default",
+                        target = "_blank",
+                    }
+                )
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eval in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.ActionLink(
+                    linkText: eval.Year1.ToString(),
+                    actionName: "Read",
+                    controllerName: "Year",
+                    routeValues: new
+                    {
+                        id = eval.Year_Id
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "",
+                        target = "_blank",
+                    }
+                )
+            </td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: eval.Period_Begin.ToShortDateString() + " - " + eval.Period_End.ToShortDateString() ,
+                    actionName: "Read",
+                    controllerName: "Period",
+                    routeValues: new
+                    {
+                        id = eval.Period_Id
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "",
+                        target = "_blank",
+                    }
+                )
+            </td>
+                <td>@Html.ActionLink(
+                    linkText: eval.Classroom_Title,
+                    actionName: "Read",
+                    controllerName: "Classroom",
+                    routeValues: new
+                    {
+                        id=eval.Classroom_Id
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "",
+                        target = "_blank",
+                    }
+                )</td>
+                <td>@eval.User_Name</td>
+                
+                <td>@eval.Date.ToShortDateString()</td>
+                <td>
+                    @eval.TotalPoint
+                </td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Evaluation",
+                    routeValues: new
+                      {
+                          id = @eval.Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "Edit",
+                    actionName: "Edit",
+                    controllerName: "Evaluation",
+                    routeValues: new
+                      {
+                          id = @eval.Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
