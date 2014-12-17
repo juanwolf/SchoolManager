@@ -263,7 +263,7 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     {
                         ws.Cells[i, 1].Value = pupil.FirstName;
                         ws.Cells[i, 2].Value = pupil.LastName;
-                        ws.Cells[i, 3].Value = pupil.Sex;
+                        ws.Cells[i, 3].Value = (SchoolManager.Models.PupilModel.Sexes) pupil.Sex;
                         ws.Cells[i, 4].Value = pupil.BirthdayDate.ToShortDateString();
                         ws.Cells[i, 5].Value = pupil.LevelTitle;
                         ws.Cells[i, 6].Value = pupil.ClassroomTitle;

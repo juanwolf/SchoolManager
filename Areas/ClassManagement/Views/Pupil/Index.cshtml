@@ -52,7 +52,7 @@
         <tr>
             <td>@pupil.FirstName</td>
             <td>@pupil.LastName</td>
-            <td>@pupil.Sex</td>
+            <td>@((SchoolManager.Models.PupilModel.Sexes) pupil.Sex)</td>
             <td>@pupil.BirthdayDate.ToShortDateString()</td>
             <td>
                 @Html.ActionLink(

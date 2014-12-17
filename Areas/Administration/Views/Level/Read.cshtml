@@ -37,7 +37,7 @@
             <tr>
                 <td>@pupil.FirstName</td>
                 <td>@pupil.LastName</td>
-                <td>@pupil.Sex</td>
+                <td>@((SchoolManager.Models.PupilModel.Sexes)pupil.Sex)</td>
                 <td>@pupil.BirthdayDate.ToString()</td>
                 <td>@pupil.State</td>
                 <!--<td>
