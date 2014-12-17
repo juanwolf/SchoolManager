@@ -1,0 +1,123 @@
+﻿@model SchoolManager.Models.PupilModel
+@{
+    ViewBag.Title = "Pupil";
+}
+
+<h2>Pupil @Model.FirstName @Model.LastName</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Sex</th>
+            <th>Birthday Date</th>
+            <th>Tutor</th>
+            <th>Classroom</th>
+            <th>Level</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>@Model.FirstName</td>
+        <td>@Model.LastName</td>
+        <td>@Model.Sex</td>
+        <td>@Model.BirthdayDate.ToShortDateString()</td>
+        <td>
+            @Html.ActionLink(
+            linkText: Model.TutorName,
+            actionName: "Read",
+            controllerName: "Tutor",
+            routeValues: new
+                {
+                    id = @Model.Tutor_Id
+                },
+            htmlAttributes: new
+                {
+                    target = "_blank",
+                }
+        )
+        </td>
+        <td>
+            @Html.ActionLink(
+            linkText: Model.ClassroomTitle,
+            actionName: "Read",
+            controllerName: "Classroom",
+            routeValues: new
+                {
+                    id = @Model.Classroom_Id
+                },
+            htmlAttributes: new
+                {
+                    target = "_blank",
+                }
+        )
+        </td>
+        <td>
+            @Html.ActionLink(
+            linkText: Model.LevelTitle,
+            actionName: "Read",
+            controllerName: "Level",
+            routeValues: new
+                {
+                    area = "Administration",
+                    id = @Model.Level_Id
+                },
+            htmlAttributes: new
+                {
+                    target = "_blank",
+                }
+        )
+        </td>
+        <td>
+            @Html.ActionLink(
+            linkText: "Edit",
+            actionName: "Edit",
+            controllerName: "Pupil",
+            routeValues: new
+                {
+                    id = @Model.Id
+                },
+            htmlAttributes: new
+                {
+                    target = "_blank",
+                }
+        )
+        </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h2>Results</h2>
+<table class="table">
+    <thead>
+        <th>Date</th>
+        <th>Note</th>
+        <th>Total point</th>
+        <th>
+            @Html.ActionLink(
+                        linkText: "Add Result",
+                        actionName: "Create",
+                        controllerName: "Result",
+                        routeValues: new
+                        {
+                        },
+                        htmlAttributes: new
+                        {
+                            @class = "btn btn-default",
+                            target = "_blank",
+                        }
+                    )
+        </th>
+    </thead>
+    @foreach (var resultat in @Model.resultats)
+    { 
+        <tr>
+            <td>@resultat.EvaluationDate</td>
+            <td>@resultat.Note</td>
+            <td>@resultat.EvaluationTotalPoint</td>
+        </tr>
+    }
+</table>
+

@@ -36,5 +36,17 @@ namespace SchoolManager.Models
             get;
             set;
         }
+
+        public int EvaluationTotalPoint
+        {
+            get;
+            set;
+        }
+
+        public DateTime EvaluationDate
+        {
+            get;
+            set;
+        }
     }
 }

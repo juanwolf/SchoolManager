@@ -54,7 +54,35 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
 
         public ActionResult Read(Guid id)
         {
-            return View();
+            using (var entity = new Entities())
+            {
+                var pupilRepo = new PupilRepository(entity);
+                PupilModel pupil = pupilRepo.getById(id).Select(p => new PupilModel
+                {
+                    Id = p.Id,
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
+                    Sex = p.Sex,
+                    BirthdayDate = p.BirthdayDate,
+                    State = p.State,
+                    Tutor_Id = p.Tutor_Id,
+                    Classroom_Id = p.Classroom_Id,
+                    Level_Id = p.Level_Id,
+                    TutorName = p.Tutor.FirstName + " " + p.Tutor.LastName,
+                    LevelTitle = p.Level.Title,
+                    ClassroomTitle = p.Classroom.Title
+                }).First();
+                var resultRepo = new ResultRepository(entity);
+                List<ResultModel> results = resultRepo.getByPupil(id).Select(r => new ResultModel {
+                    Id = r.Id,
+                    Note = r.Note,
+                    Evaluation_Id = r.Evaluation.Id,
+                    EvaluationTotalPoint = r.Evaluation.TotalPoint,
+                    EvaluationDate = r.Evaluation.Date
+                }).ToList();
+                pupil.resultats = results;
+                return View(pupil);
+            }
         }
 
         [HttpGet]
