@@ -50,7 +50,11 @@ namespace SchoolManager.Areas.Administration.Controllers
                     Sex = p.Sex,
                     State = p.State,
                     Level_Id = level.Id,
-                    LevelTitle = level.Title
+                    LevelTitle = level.Title,
+                    TutorName = p.Tutor.FirstName + " " + p.Tutor.LastName,
+                    Tutor_Id = p.Tutor.Id,
+                    ClassroomTitle = p.Classroom.Title,
+                    Classroom_Id = p.Classroom_Id
                 }).ToList();
                 level.pupils = pupils;
                 return View(level);

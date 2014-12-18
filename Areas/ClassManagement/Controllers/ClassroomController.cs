@@ -137,8 +137,11 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     BirthdayDate = p.BirthdayDate,
                     State = p.State,
                     Tutor_Id = p.Tutor_Id,
+                    TutorName = p.Tutor.FirstName + " " + p.Tutor.LastName,
                     Classroom_Id = p.Classroom_Id,
-                    Level_Id = p.Level_Id
+                    ClassroomTitle = p.Classroom.Title,
+                    Level_Id = p.Level_Id,
+                    LevelTitle = p.Level.Title
                 }).ToList();
                 classroom.evaluations = evaluationRepo.getByClassroom(id).Select(e => new EvaluationModel
                 {

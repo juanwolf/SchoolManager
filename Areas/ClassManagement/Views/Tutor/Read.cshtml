@@ -34,9 +34,10 @@
             <th>Last Name</th>
             <th>Sex</th>
             <th>Birthday Date</th>
-            <th>State</th>
+            <th>Tutor</th>
+            <th>Classroom</th>
+            <th>Level</th>
             <th>
-
                 @Html.ActionLink(
                     linkText: "Add Pupil",
                     actionName: "Create",
@@ -60,26 +61,85 @@
                 <td>@pupil.FirstName</td>
                 <td>@pupil.LastName</td>
                 <td>@((SchoolManager.Models.PupilModel.Sexes)pupil.Sex)</td>
-                <td>@pupil.BirthdayDate.ToString()</td>
-                <td>@pupil.State</td>
-                <!--<td>
+                <td>@pupil.BirthdayDate.ToShortDateString()</td>
+                <td>
                     @Html.ActionLink(
-                    linkText: "See",
+                    linkText: pupil.TutorName,
                     actionName: "Read",
-                    controllerName: "Pupil",
+                    controllerName: "Tutor",
                     routeValues: new
                       {
-                          id=@pupil.Id
+                          id = @pupil.Tutor_Id
                       },
                     htmlAttributes: new
                      {
                          target = "_blank",
                      }
                 )
-                </td>-->
+                </td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: pupil.ClassroomTitle,
+                    actionName: "Read",
+                    controllerName: "Classroom",
+                    routeValues: new
+                      {
+                          id = @pupil.Classroom_Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: pupil.LevelTitle,
+                    actionName: "Read",
+                    controllerName: "Level",
+                    routeValues: new
+                      {
+                          area = "Administration",
+                          id = @pupil.Level_Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Pupil",
+                    routeValues: new
+                      {
+                          id = @pupil.Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "Edit",
+                    actionName: "Edit",
+                    controllerName: "Pupil",
+                    routeValues: new
+                      {
+                          id = @pupil.Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
             </tr>
         }
     </tbody>
 </table>
-
 

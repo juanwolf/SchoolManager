@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Read";
 }
-<h2>Etablissement @Model.Name</h2>
+<h2>Establishment @Model.Name</h2>
 <table class="table">
 <thead>
     <tr>
@@ -105,6 +105,21 @@
                             target = "_blank",
                     }
                 )
+                </td>
+                <td>
+                    @Html.ActionLink(
+                linkText: "See",
+                actionName: "Read",
+                controllerName: "Classroom",
+                routeValues: new
+                    {
+                        id = @classroom.Id
+                    },
+                htmlAttributes: new
+                    {
+                        target = "_blank",
+                    }
+            )
                 </td>
                 <td>
                     @Html.ActionLink(

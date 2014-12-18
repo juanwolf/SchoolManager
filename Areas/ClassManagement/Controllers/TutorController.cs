@@ -73,11 +73,12 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     LastName = p.LastName,
                     Sex = p.Sex,
                     State = p.State,
-                    //Level_Id = level.Id,
-                    //LevelTitle = level.Title,
+                    Level_Id = p.Level_Id,
+                    LevelTitle = p.Level.Title,
                     Tutor_Id = tutor.Id,
                     TutorName = tutor.FirstName + " " + tutor.LastName,
-                    //Ajouter Classes, Resultats
+                    ClassroomTitle = p.Classroom.Title,
+                    Classroom_Id = p.Classroom_Id//Ajouter Classes, Resultats
                 }).ToList();
                 tutor.pupils = pupils;
                 return View(tutor);
