@@ -134,13 +134,13 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     convertPupilModelToPupil(pupil, p);
                     repo.Add(p);
                     repo.Save();
-                    return View("~/Areas/ClassManagement/Views/Pupil/Read.cshtml", pupil);
+                    return RedirectToAction("Read", new { id = pupil.Id });
                 }
 
             }
             else
             {
-                return View("~/Areas/ClassManagement/Views/Pupil/Create.cshtml", pupil);
+                return View(pupil);
             }
         }
 
@@ -206,13 +206,13 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     Pupil p = repo.getById(pupil.Id).First();
                     convertPupilModelToPupil(pupil, p);
                     repo.Save();
-                    return View("~/Areas/ClassManagement/Views/Pupil/Read.cshtml", pupil);
+                    return RedirectToAction("Read", new { id = pupil.Id });
                 }
 
             }
             else
             {
-                return View("~/Areas/ClassManagement/Views/Pupil/Edit.cshtml", pupil);
+                return RedirectToAction("Edit", new { id = pupil.Id });
             }
         }
 

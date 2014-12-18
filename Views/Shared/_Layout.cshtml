@@ -23,7 +23,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        @Html.ActionLink("SchoolManager", "Index", "Home", new { @class = "navbar-brand" })
+                        @Html.ActionLink("SchoolManager", "Index", "Home", new { area=""}, new { @class = "navbar-brand" })
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -49,43 +49,25 @@
                             </li>
                            
                         </ul>
-                        <!--<form class="navbar-form navbar-left" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
-                            </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </form>
-                        
-                        <ul class="nav navbar-nav navbar-right navbar-default">
-                            <li><a href="#">Link</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                </ul>
-                            </li>
-                        </ul>-->
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
             </nav>
-            <div id="body" class="container">
-                @RenderSection("featured", required: false)
-                <section class="content-wrapper main-content clear-fix">
-                    @RenderBody()
-                </section>
-            </div>
-            <footer class="container">
-                <div class="content-wrapper">
+            <div id="body">
+                @RenderSection("header", required: false)
+                <div class="container">
+                    @RenderSection("featured", required: false)
+                    <section class="content-wrapper main-content clear-fix">
+                        @RenderBody()
+                    </section>
+                    <div id="push"></div>
+                </div>
+            </div>   
+            <footer>
+                <div class="container">
                     <div class="float-left">
-                        <p>&copy; @DateTime.Now.Year - Mon application ASP.NET MVC</p>
+                        <p>&copy; @DateTime.Now.Year - SchoolManager 1.0 coded by <a href="https://twitter.com/juan__wolf">juanwolf</a> </p>
                     </div>
                 </div>
             </footer>
-
-
     </body>
 </html>

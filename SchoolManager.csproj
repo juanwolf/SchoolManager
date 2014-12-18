@@ -347,6 +347,8 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Entities.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Content\themes\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\school-header.jpg" />
     <Content Include="Models\Entities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Entities.edmx</DependentUpon>
@@ -380,6 +382,9 @@
     <Content Include="Areas\ClassManagement\Views\Pupil\Edit.cshtml" />
     <Content Include="Areas\ClassManagement\Views\Pupil\Read.cshtml" />
     <Content Include="Areas\ClassManagement\Views\Evaluation\Index.cshtml" />
+    <Content Include="Content\themes\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\themes\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\themes\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\jquery-1.11.js" />
@@ -456,6 +461,7 @@
     <Folder Include="Areas\Administration\Views\Shared\" />
     <Folder Include="Areas\ClassManagement\Views\Result\" />
     <Folder Include="Areas\ClassManagement\Views\Shared\" />
+    <Folder Include="Content\themes\Font-Awesome\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
