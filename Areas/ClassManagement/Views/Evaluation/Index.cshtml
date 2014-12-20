@@ -24,7 +24,7 @@
                     },
                     htmlAttributes: new
                     {
-                        @class = "btn btn-default",
+                        @class = "btn btn-default btn-sm",
                         target = "_blank",
                     }
                 )
@@ -43,6 +43,7 @@
                     controllerName: "Year",
                     routeValues: new
                     {
+                        area="Administration",
                         id = eval.Year_Id
                     },
                     htmlAttributes: new
@@ -59,6 +60,7 @@
                     controllerName: "Period",
                     routeValues: new
                     {
+                        area="Administration",
                         id = eval.Period_Id
                     },
                     htmlAttributes: new
@@ -118,6 +120,25 @@
                      }
                 )
                 </td>
+                @if (!eval.HasResults) { 
+                    <td>
+                        @Html.ActionLink(
+                        linkText: "Add Results",
+                        actionName: "AddResults",
+                        controllerName: "Evaluation",
+                        routeValues: new
+                          {
+                              id = @eval.Id
+                          },
+                        htmlAttributes: new
+                         {
+                             @class="btn btn-default btn-sm",
+                             target = "_blank",
+                         }
+                    )
+                    
+                </td>
+                }
             </tr>
         }
     </tbody>

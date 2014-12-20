@@ -37,5 +37,15 @@ namespace SchoolManager.Models
         {
             return context.Evaluations.Where(e => e.Classroom_Id == id);
         }
+
+        internal void Add(Evaluation e)
+        {
+            context.Evaluations.Add(e);
+        }
+
+        public void Save()
+        {
+            context.SaveChanges();
+        }
     }
 }

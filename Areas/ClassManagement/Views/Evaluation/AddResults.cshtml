@@ -1,0 +1,109 @@
+﻿@model List<SchoolManager.Models.ResultModel>
+@{
+    ViewBag.Title = "Add Results";
+    var eval = (SchoolManager.Models.EvaluationModel)ViewData["evaluation"];
+    var pupils = (List<SchoolManager.Models.PupilModel>)ViewData["pupils"];
+}
+
+<h2>Add Results</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Period</th>
+            <th>Classroom</th>
+            <th>User</th>
+
+            <th>Date</th>
+            <th>TotalPoint</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+
+            <td>
+                @Html.ActionLink(
+                linkText: eval.Year1.ToString(),
+                actionName: "Read",
+                controllerName: "Year",
+                routeValues: new
+                {
+                    area = "Administration",
+                    id = eval.Year_Id
+                },
+                htmlAttributes: new
+                {
+                    @class = "",
+                    target = "_blank",
+                }
+            )
+            </td>
+            <td>
+                @Html.ActionLink(
+                linkText: eval.Period_Begin.ToShortDateString() + " - " + eval.Period_End.ToShortDateString(),
+                actionName: "Read",
+                controllerName: "Period",
+                routeValues: new
+                {
+                    area = "Administration",
+                    id = eval.Period_Id
+                },
+                htmlAttributes: new
+                {
+                    @class = "",
+                    target = "_blank",
+                }
+            )
+            </td>
+            <td>
+                @Html.ActionLink(
+                linkText: eval.Classroom_Title,
+                actionName: "Read",
+                controllerName: "Classroom",
+                routeValues: new
+                {
+                    id = eval.Classroom_Id
+                },
+                htmlAttributes: new
+                {
+                    @class = "",
+                    target = "_blank",
+                }
+            )
+        </td>
+        <td>@eval.User_Name</td>
+
+        <td>@eval.Date.ToShortDateString()</td>
+        <td>
+            @eval.TotalPoint
+        </td>
+        </tr>
+    </tbody>
+</table>
+
+@{Html.BeginForm("AddResults", "Evaluation", FormMethod.Post, new { @class = "form-horizontal" });}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Pupil</th>
+            <th>Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < pupils.Count; i++)
+        {
+            <tr>
+                @Html.HiddenFor(r => r[i].Pupil_Id, new { Value = pupils[i].Id})
+                @Html.HiddenFor(r => r[i].Evaluation_Id, new { Value = eval.Id })
+                <td>@pupils[i].FirstName @pupils[i].LastName</td>
+                <td>@Html.TextBoxFor(r => r[i].Note, new { @input="number" })</td>
+            </tr>
+            
+        }
+    </tbody>
+
+}
+</table>
+
+<input class="btn btn-primary" type="submit" value="Valider" />
+@{Html.EndForm();}

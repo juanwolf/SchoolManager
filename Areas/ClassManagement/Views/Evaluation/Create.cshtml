@@ -1,0 +1,60 @@
+﻿@model SchoolManager.Models.EvaluationModel
+@{
+    ViewBag.Title = "Create - Evaluation";
+    List<SchoolManager.Models.ClassroomModel> classrooms = (List<SchoolManager.Models.ClassroomModel>)ViewData["classrooms"];
+    List<SchoolManager.Models.PeriodModel> periods = (List<SchoolManager.Models.PeriodModel>) ViewData["periods"];
+}
+
+<h2>Create new Evaluation</h2>
+@{Html.BeginForm("Create", "Evaluation", FormMethod.Post, new { @class = "form-horizontal" });}
+@Html.HiddenFor(p => p.Id)
+
+@Html.LabelFor(p => p.Date)
+<input type="date" class="form-control" placeholder="Date" id="Date" name="Date" value="@Model.Date.ToShortDateString()" />
+
+@Html.LabelFor(p => p.TotalPoint)
+@Html.TextBoxFor(p => p.TotalPoint, new {@class = "form-control", @type="number"})
+
+
+<label>Period</label>
+<select class="form-control" id="Period_Id" name="Period_Id">
+    @foreach (var period in periods)
+    {
+        if (period.Id == @Model.Period_Id)
+        {
+            <option selected="selected" value="@period.Id">@period.Begin.ToShortDateString() - @period.End.ToShortDateString()</option>
+        }
+        else
+        {
+            <option value="@period.Id">@period.Begin.ToShortDateString() - @period.End.ToShortDateString()</option>
+        }
+    }
+</select>
+
+<label for="Classroom_Id" class="">Classroom</label>
+<select class="form-control" id="Classroom_Id" name="Classroom_Id">
+    @foreach (var classroom in classrooms)
+    {
+        if (classroom.Id == @Model.Classroom_Id)
+        {
+            <option selected="selected" value="@classroom.Id">@classroom.Title | @classroom.Establishment_Name | @classroom.User_Name | @classroom.Year1.ToString()</option>
+        }
+        else
+        {
+            <option value="@classroom.Id">@classroom.Title | @classroom.Establishment_Name | @classroom.User_Name | @classroom.Year1.ToString()</option>
+        }
+    }
+</select>
+<input class="btn btn-primary" type="submit" value="Valider" />
+@{Html.EndForm();}
+
+<!-- Script pour support Firefox -->
+<script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+<!-- polyfiller file to detect and load polyfills -->
+<script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+<script>
+    webshims.setOptions('waitReady', false);
+    webshims.setOptions('forms-ext', { types: 'date' });
+    webshims.polyfill('forms forms-ext');
+</script>
+

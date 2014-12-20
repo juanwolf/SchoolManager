@@ -78,5 +78,24 @@ namespace SchoolManager.Models
             get;
             set;
         }
+
+        public List<ResultModel> Results
+        {
+            get;
+            set;
+        }
+
+        public int Results_Number
+        {
+            get;
+            set;
+        }
+
+        public Boolean HasResults
+        {
+            get { return Results_Number != 0; }
+        }
+
+
     }
 }
