@@ -22,6 +22,21 @@
         <tr>
             <th>Date</th>
             <th>Point</th>
+            <th>@Html.ActionLink(
+                        linkText: "Add Evaluation",
+                        actionName: "Create",
+                        controllerName: "Evaluation",
+                        routeValues: new
+                          {
+                              area = "ClassManagement",
+                              Period_Id = @Model.Id
+                          },
+                        htmlAttributes: new
+                        {
+                            @class="btn btn-default btn-sm"            
+                        }
+                    )
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -37,7 +52,7 @@
                         controllerName: "Evaluation",
                         routeValues: new
                           {
-
+                                area = "ClassManagement"
                           },
                           htmlAttributes: null
                     )

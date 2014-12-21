@@ -36,7 +36,15 @@
 <select class="form-control" id="Level_Id" name="Level_Id">
     @foreach (var level in levels)
     {
-        <option value="@level.Id">@level.Title | @level.CycleName</option>
+        if (@Model.Level_Id.Equals(level.Id))
+        {
+            <option selected="selected" value="@level.Id">@level.Title | @level.CycleName</option>
+        }
+        else
+        {
+             <option value="@level.Id">@level.Title | @level.CycleName</option>
+        }
+       
     }
 </select>
 
@@ -45,7 +53,13 @@
 <select class="form-control" id="Tutor_Id" name="Tutor_Id">
     @foreach (var tutor in tutors )
     {
-        <option value="@tutor.Id">@tutor.FirstName @tutor.LastName</option>
+        if (Model.Tutor_Id.Equals(tutor.Id))
+        {
+            <option selected="selected" value="@tutor.Id">@tutor.FirstName @tutor.LastName</option>
+        }
+        else { 
+            <option value="@tutor.Id">@tutor.FirstName @tutor.LastName</option>
+        }
     }
 </select>
 
@@ -53,7 +67,14 @@
 <select class="form-control" id="Classroom_Id" name="Classroom_Id">
     @foreach (var classroom in classrooms)
     {
-        <option value="@classroom.Id">@classroom.Title | @classroom.Establishment_Name | @classroom.User_Name | @classroom.Year1.ToString()</option>
+        if (Model.Classroom_Id.Equals(classroom.Id)) 
+        {
+            <option selected="selected" value="@classroom.Id">@classroom.Title | @classroom.Establishment_Name | @classroom.User_Name | @classroom.Year1.ToString()</option>
+        }
+        else
+        {
+            <option value="@classroom.Id">@classroom.Title | @classroom.Establishment_Name | @classroom.User_Name | @classroom.Year1.ToString()</option>
+        }
     }
 </select>
 <input class="btn btn-primary" type="submit" value="Valider" />

@@ -86,11 +86,23 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(Guid? Level_Id, Guid? Tutor_Id, Guid? Classroom_Id)
         {
             using (var entity = new Entities())
             {
                 PupilModel pupil = new PupilModel();
+                if (Level_Id.HasValue)
+                {
+                    pupil.Level_Id = (Guid) Level_Id;
+                }
+                if (Tutor_Id.HasValue)
+                {
+                    pupil.Tutor_Id = (Guid)Tutor_Id;
+                }
+                if (Classroom_Id.HasValue)
+                {
+                    pupil.Classroom_Id = (Guid)Classroom_Id;
+                }
                 LevelRepository levelRepo = new LevelRepository(entity);
                 TutorRepository tutorRepo = new TutorRepository(entity);
                 ClassroomRepository classroomRepo = new ClassroomRepository(entity);

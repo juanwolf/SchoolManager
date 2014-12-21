@@ -16,7 +16,14 @@
 <select class="form-control" id="Establishment_Id" name="Establishment_Id">
     @foreach (var establishment in establishmentDico.Keys)
     {
-        <option value="@establishment.id">@establishment.Name with @establishmentDico[establishment].FirstName @establishmentDico[establishment].LastName</option>
+        if (establishment.id.Equals(Model.Establishment_Id))
+        {
+            <option selected="selected" value="@establishment.id">@establishment.Name with @establishmentDico[establishment].FirstName @establishmentDico[establishment].LastName</option>
+        }
+        else
+        {
+            <option value="@establishment.id">@establishment.Name with @establishmentDico[establishment].FirstName @establishmentDico[establishment].LastName</option>
+        }
     }
 </select>
 
@@ -24,7 +31,14 @@
 <select class="form-control" id="Year_Id" name="Year_Id">
     @foreach (var year in (List<SchoolManager.Models.YearModel>)ViewData["years"])
     {
-        <option value="@year.Id">@year.Year1</option>
+        
+        if(year.Id.Equals(Model.Year_Id)) {
+            <option selected="selected" value="@year.Id">@year.Year1</option>
+        }
+        else
+        {
+            <option value="@year.Id">@year.Year1</option>
+        }
     }
 </select>
 

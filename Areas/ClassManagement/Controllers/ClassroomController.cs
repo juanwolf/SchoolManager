@@ -46,11 +46,19 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(Guid? Year_Id, Guid? Establishment_Id)
         {
             using (var entity = new Entities())
             {
                 ClassroomModel classroom = new ClassroomModel();
+                if (Year_Id.HasValue)
+                {
+                    classroom.Year_Id = (Guid) Year_Id;
+                }
+                if (Establishment_Id.HasValue)
+                {
+                    classroom.Establishment_Id = (Guid)Establishment_Id;
+                }
                 YearRepository yearRepo = new YearRepository(entity);
                 EstablishmentRepository establishmentRepo = new EstablishmentRepository(entity);
                 UserRepository userRepo = new UserRepository(entity);

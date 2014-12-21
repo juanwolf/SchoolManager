@@ -4,33 +4,36 @@
 }
 
 <h2>New Establishment</h2>
-@{Html.BeginForm("Create", "Establishment");}
+@{Html.BeginForm("Create", "Establishment", FormMethod.Post, new { @class = "form-horizontal" });}
 @Html.HiddenFor(t => t.id)
 
 @Html.LabelFor(t => t.Name)
-@Html.TextBoxFor(t => t.Name)
+@Html.TextBoxFor(t => t.Name, new { @class="form-control"})
 
 @Html.LabelFor(t=>t.Address)
-@Html.TextBoxFor(t => t.Address)
+@Html.TextBoxFor(t => t.Address, new { @class = "form-control" })
 
 @Html.LabelFor(t => t.PostCode)
-@Html.TextBoxFor(t => t.PostCode)
+@Html.TextBoxFor(t => t.PostCode, new { @class = "form-control" })
 
 @Html.LabelFor(t => t.Town)
-@Html.TextBoxFor(t => t.Town)
-<span>Academy</span>
-<select id="Academie_Id" name="Academie_Id">
+@Html.TextBoxFor(t => t.Town, new { @class="form-control"})
+<label>Academy</label>
+<select class="form-control" id="Academie_Id" name="Academie_Id">
     @foreach (var academy in (List<SchoolManager.Areas.ClassManagement.Models.AcademyModel>)ViewData["academies"])
     {
-        if (academy.Id == ((List<SchoolManager.Areas.ClassManagement.Models.AcademyModel>)ViewData["academies"]).First().Id)
+        if (academy.Id == @Model.Academie_Id)
         {
             <option selected="selected" value="@academy.Id">@academy.Name</option>
         }
-        <option value="@academy.Id">@academy.Name</option>
+        else 
+        { 
+            <option value="@academy.Id">@academy.Name</option>
+        }
     }
 </select>
-<span>User</span>
-<select id="User_Id" name="User_Id">
+<label>User</label>
+<select class="form-control" id="User_Id" name="User_Id">
     @foreach (var user in (List<SchoolManager.Areas.ClassManagement.Models.UserModel>)ViewData["users"])
     {
         if (user.Id == ((List<SchoolManager.Areas.ClassManagement.Models.UserModel>)ViewData["users"]).First().Id)
@@ -43,5 +46,5 @@
 
 
 
-<input type="submit" value="Valider" />
+<input class="btn btn-primary" type="submit" value="Valider" />
 @{Html.EndForm();}

@@ -93,10 +93,14 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(Guid? Academy_Id)
         {
             using (var entity = new Entities()) {
                 EstablishmentModel establishment = new EstablishmentModel();
+                if (Academy_Id.HasValue)
+                {
+                    establishment.Academie_Id = (Guid)Academy_Id;
+                }
                 AcademyRepository academy = new AcademyRepository(entity);
                 UserRepository userRepo = new UserRepository(entity);
                 ViewData["academies"] = academy.All().Select(u => new AcademyModel {

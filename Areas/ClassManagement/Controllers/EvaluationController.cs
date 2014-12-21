@@ -58,7 +58,7 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(Guid? Period_Id, Guid? Classroom_Id)
         {
             using (var entity = new Entities()) {
                 EvaluationModel eval = new EvaluationModel();
@@ -66,6 +66,15 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                 PeriodRepository periodRepo = new PeriodRepository(entity);
                 UserRepository userRepo = new UserRepository(entity);
 
+                if (Period_Id.HasValue)
+                {
+                    eval.Period_Id = (Guid) Period_Id;
+                }
+
+                if (Classroom_Id.HasValue)
+                {
+                    eval.Classroom_Id = (Guid)Classroom_Id;
+                }
                 ViewData["classrooms"] = classroomRepo.All().Select(c => new ClassroomModel
                 {
                     Id = c.Id,
