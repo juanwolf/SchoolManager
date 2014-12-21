@@ -84,25 +84,23 @@
 @{Html.BeginForm("AddResults", "Evaluation", FormMethod.Post, new { @class = "form-horizontal" });}
 <table class="table">
     <thead>
-        <tr>
-            <th>Pupil</th>
-            <th>Result</th>
+        <tr class="row">
+            <th class="col-sm-6">Pupil</th>
+            <th class="col-sm-6">Result</th>
         </tr>
     </thead>
     <tbody>
         @for (int i = 0; i < pupils.Count; i++)
         {
-            <tr>
+            <tr class="row">
                 @Html.HiddenFor(r => r[i].Pupil_Id, new { Value = pupils[i].Id})
                 @Html.HiddenFor(r => r[i].Evaluation_Id, new { Value = eval.Id })
-                <td>@pupils[i].FirstName @pupils[i].LastName</td>
-                <td>@Html.TextBoxFor(r => r[i].Note, new { @input="number" })</td>
+                <td class="col-sm-6">@pupils[i].FirstName @pupils[i].LastName</td>
+                <td class="col-sm-6">@Html.TextBoxFor(r => r[i].Note, new { type="number", @class="form-control", min="0", max=eval.TotalPoint })</td>
             </tr>
             
         }
     </tbody>
-
-}
 </table>
 
 <input class="btn btn-primary" type="submit" value="Valider" />

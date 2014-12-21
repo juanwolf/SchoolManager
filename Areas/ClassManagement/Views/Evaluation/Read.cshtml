@@ -1,0 +1,116 @@
+﻿@model SchoolManager.Models.EvaluationModel
+@{
+    ViewBag.Title = "Read - Evaluation";
+    var results = (List<SchoolManager.Models.ResultModel>)ViewData["results"];
+}
+
+<h2>Evaluation</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Period</th>
+            <th>Classroom</th>
+            <th>User</th>
+
+            <th>Date</th>
+            <th>TotalPoint</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+
+            <td>
+                @Html.ActionLink(
+                linkText: Model.Year1.ToString(),
+                actionName: "Read",
+                controllerName: "Year",
+                routeValues: new
+                {
+                    area = "Administration",
+                    id = Model.Year_Id
+                },
+                htmlAttributes: new
+                {
+                    @class = "",
+                    target = "_blank",
+                }
+            )
+            </td>
+            <td>
+                @Html.ActionLink(
+                linkText: Model.Period_Begin.ToShortDateString() + " - " + Model.Period_End.ToShortDateString(),
+                actionName: "Read",
+                controllerName: "Period",
+                routeValues: new
+                {
+                    area = "Administration",
+                    id = Model.Period_Id
+                },
+                htmlAttributes: new
+                {
+                    @class = "",
+                    target = "_blank",
+                }
+            )
+            </td>
+            <td>
+                @Html.ActionLink(
+                    linkText: Model.Classroom_Title,
+                    actionName: "Read",
+                    controllerName: "Classroom",
+                    routeValues: new
+                    {
+                        id = Model.Classroom_Id
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "",
+                        target = "_blank",
+                    }
+                )
+            </td>
+            <td>@Model.User_Name</td>
+
+            <td>@Model.Date.ToShortDateString()</td>
+            <td>
+                @Model.TotalPoint
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Results</h2>
+<table class="table">
+    <thead>
+        <tr class="row">
+            <th class="col-sm-6">Pupil</th>
+            <th class="col-sm-6">Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var result in results)
+        {
+            <tr class="row">
+                <td class="col-sm-6">
+                 @Html.ActionLink(
+                    linkText: result.Pupil_Name,
+                    actionName: "Read",
+                    controllerName: "Pupil",
+                    routeValues: new
+                    {
+                        id = result.Pupil_Id
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "",
+                        target = "_blank",
+                    }
+                )</td>
+                <td class="col-sm-6">@result.Note</td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
