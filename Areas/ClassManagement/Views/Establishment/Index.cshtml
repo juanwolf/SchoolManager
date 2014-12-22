@@ -4,85 +4,24 @@
 }
 
 <h2>Establishments</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Academy</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>PostCode</th>
-            <th>Town</th>
-            <th>
-                    @Html.ActionLink(
-                    linkText: "Add Establishment",
-                    actionName: "Create",
-                    controllerName: "Establishment",
-                    routeValues: new
-                    {
-
-                    },
-                    htmlAttributes: new
-                    {
-                        @class = "btn btn-default",
-                        target = "_blank",
-                    }
-                )
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var establishment in Model)
+<div id="search">
+    @using (Ajax.BeginForm("Search", "Establishment",
+        new AjaxOptions
         {
-            <tr>
-                <td>@Html.ActionLink(
-                    linkText: establishment.AcademyName,
-                    actionName: "Read",
-                    controllerName: "Academy",
-                    routeValues: new
-                    {
-                        id=@establishment.Academie_Id
-                    },
-                    htmlAttributes: new
-                    {
-                        @class = "",
-                        target = "_blank",
-                    }
-                )</td>
-                <td>@establishment.Name</td>
-                <td>@establishment.Address</td>
-                <td>@establishment.PostCode</td>
-                <td>@establishment.Town</td>
-                <td>
-                    @Html.ActionLink(
-                    linkText: "See",
-                    actionName: "Read",
-                    controllerName: "Establishment",
-                    routeValues: new
-                      {
-                          id = @establishment.id
-                      },
-                    htmlAttributes: new
-                     {
-                         target = "_blank",
-                     }
-                )
-                </td>
-                <td>
-                    @Html.ActionLink(
-                    linkText: "Edit",
-                    actionName: "Edit",
-                    controllerName: "Establishment",
-                    routeValues: new
-                      {
-                          id = @establishment.id
-                      },
-                    htmlAttributes: new
-                     {
-                         target = "_blank",
-                     }
-                )
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            UpdateTargetId = "EstablishmentsArray",
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+        }, new { @class = "form-group" }))
+    {
+        <div class="input-group">
+            <input type="text" name="query" class="form-control" placeholder="Search..." />
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    }
+</div>
+<div id="EstablishmentsArray">
+    @Html.Partial("~/Areas/ClassManagement/Views/Shared/_EstablishmentResults.cshtml", @Model)
+</div>
+

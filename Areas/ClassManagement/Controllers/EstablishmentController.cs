@@ -57,23 +57,13 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                 {
                     id = p.Id,
                     Name = p.Name,
-                    PostCode = p.PostCode,
                     Address = p.Address,
+                    PostCode = p.PostCode,
                     Town = p.Town,
-                    User_Id = p.User_Id,
                     Academie_Id = p.Academie_Id,
-                }).First();
-                AcademyModel academy = academyRepo.getById(establishment.Academie_Id).Select(a => new AcademyModel
-                {
-                    Id = a.Id,
-                    Name = a.Name
-                }).First();
-                establishment.AcademyName = academy.Name;
-                UserModel user = UserRepo.getById(establishment.User_Id).Select(a => new UserModel
-                {
-                    Id = a.Id,
-                    FirstName = a.FirstName,
-                    LastName = a.LastName
+                    AcademyName = p.Academy.Name,
+                    UserName = p.User.FirstName + " " + p.User.LastName,
+                    User_Id = p.User_Id
                 }).First();
                 establishment.Classrooms = classroomRepo.getByEstablishment(id).Select(c => new ClassroomModel
                 {
@@ -86,8 +76,6 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     Year1 = c.Year.Year1,
                     User_Name = c.User.FirstName + " " + c.User.LastName
                 }).ToList();
-                establishment.UserName = user.FirstName + " " + user.LastName;
-
                 return View(establishment);
             }
         }
@@ -184,6 +172,30 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
 
             }
             return View("~/Areas/ClassManagement/Views/Establishment/Read.cshtml", establishment);
+        }
+
+        [HttpPost]
+        public ActionResult Search(string query)
+        {
+            using (var entity = new Entities())
+            {
+                String[] results = query.Split(new Char[] { ' ', ',' });
+                var repo = new EstablishmentRepository(entity);
+                var establishments = repo.Search(results).Select(p => new EstablishmentModel
+                {
+                    id = p.Id,
+                    Name = p.Name,
+                    Address = p.Address,
+                    PostCode = p.PostCode,
+                    Town = p.Town,
+                    Academie_Id = p.Academie_Id,
+                    AcademyName = p.Academy.Name,
+                    UserName = p.User.FirstName + " " + p.User.LastName,
+                    User_Id = p.User_Id
+                }).ToList();
+
+                return PartialView("~/Areas/ClassManagement/Views/Shared/_EstablishmentResults.cshtml", establishments);
+            }
         }
     }
 }

@@ -35,6 +35,20 @@ namespace SchoolManager.Areas.ClassManagement.Models
             return context.Establishments.Where(c => c.User_Id == id);
         }
 
+        public IQueryable<Establishment> Search(String[] items)
+        {
+            IQueryable<Establishment> establishments = context.Establishments;
+            if (items[0] != "")
+            {
+                establishments = establishments.Where(s => items.Contains(s.Name)
+                        || items.Contains(s.Town)
+                        || items.Contains(s.PostCode)
+                        || items.Contains(s.User.LastName)
+                        || items.Contains(s.Academy.Name));
+            }
+            return establishments;
+        }
+
         public void Add(Establishment e)
         {
             context.Establishments.Add(e);
