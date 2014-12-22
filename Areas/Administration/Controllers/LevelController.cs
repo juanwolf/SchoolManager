@@ -44,6 +44,7 @@ namespace SchoolManager.Areas.Administration.Controllers
                     Cycle_Id = lvl.Cycle_Id
                 }).First();
                 List<PupilModel> pupils = pupilsRepo.getByLevel(id).Select(p => new PupilModel {
+                    Id = p.Id,
                     BirthdayDate = p.BirthdayDate,
                     FirstName = p.FirstName,
                     LastName = p.LastName,

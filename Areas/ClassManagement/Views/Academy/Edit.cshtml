@@ -5,12 +5,12 @@
 
 <h2>Edit</h2>
 
-@{Html.BeginForm("Edit", "Academy");}
+@{Html.BeginForm("Edit", "Academy", FormMethod.Post, new { @class = "form-horizontal" });}
 @Html.HiddenFor(t => t.Id)
 
 @Html.LabelFor(t => t.Name)
-@Html.TextBoxFor(t => t.Name)
+@Html.TextBoxFor(t => t.Name, new { @class="form-control"})
 
 
-<input type="submit" value="Valider" />
+<input type="submit" value="Valider" class="btn btn-primary" />
 @{Html.EndForm();}
