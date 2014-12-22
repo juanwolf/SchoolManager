@@ -1,0 +1,98 @@
+﻿@model List<SchoolManager.Models.ClassroomModel>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Teacher</th>
+            <th>Establishment</th>
+            <th>
+                @Html.ActionLink(
+                linkText: "Add Classroom",
+                actionName: "Create",
+                controllerName: "Classroom",
+                routeValues: new
+                {
+
+                },
+                htmlAttributes: new
+                {
+                    @class = "btn btn-default",
+                    target = "_blank",
+                }
+            )
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (SchoolManager.Models.ClassroomModel classroom in Model)
+        {
+            <tr>
+                <td>@classroom.Title</td>
+                <td>
+                    @Html.ActionLink(
+                linkText: classroom.Year1.ToString(),
+                actionName: "Read",
+                controllerName: "Year",
+                routeValues: new
+                {
+                    area = "Administration",
+                    id = @classroom.Year_Id
+                },
+                htmlAttributes: new
+                {
+                    @class = "",
+                    target = "_blank",
+                }
+            )
+                </td>
+                <td>@classroom.User_Name</td>
+                <td>
+                    @Html.ActionLink(
+                linkText: @classroom.Establishment_Name,
+                actionName: "Read",
+                controllerName: "Establishment",
+                routeValues: new
+                    {
+                        id = @classroom.Establishment_Id
+                    },
+                htmlAttributes: new
+                    {
+                        target = "_blank",
+                    }
+            )
+                </td>
+                <td>
+                    @Html.ActionLink(
+                linkText: "See",
+                actionName: "Read",
+                controllerName: "Classroom",
+                routeValues: new
+                    {
+                        id = @classroom.Id
+                    },
+                htmlAttributes: new
+                    {
+                        target = "_blank",
+                    }
+            )
+                </td>
+                <td>
+                    @Html.ActionLink(
+                linkText: "Edit",
+                actionName: "Edit",
+                controllerName: "Classroom",
+                routeValues: new
+                    {
+                        id = @classroom.Id
+                    },
+                htmlAttributes: new
+                    {
+                        target = "_blank",
+                    }
+            )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

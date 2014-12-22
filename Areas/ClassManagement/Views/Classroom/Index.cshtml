@@ -4,99 +4,24 @@
     }
 
     <h2>Classrooms</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Year</th>
-                <th>Teacher</th>
-                <th>Establishment</th>
-                <th>
-                    @Html.ActionLink(
-                    linkText: "Add Classroom",
-                    actionName: "Create",
-                    controllerName: "Classroom",
-                    routeValues: new
-                    {
+<div id="search">
+    @using (Ajax.BeginForm("Search", "Classroom",
+        new AjaxOptions
+        {
+            UpdateTargetId = "ClassroomsArray",
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+        }, new { @class = "form-group" }))
+    {
+        <div class="input-group">
+            <input type="text" name="query" class="form-control" placeholder="Search..." />
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    }
+</div>
+<div id="ClassroomsArray">
+    @Html.Partial("~/Areas/ClassManagement/Views/Shared/_ClassroomResults.cshtml", @Model)
+</div>
 
-                    },
-                    htmlAttributes: new
-                    {
-                        @class = "btn btn-default",
-                        target = "_blank",
-                    }
-                )
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (SchoolManager.Models.ClassroomModel classroom in Model)
-            {
-                <tr>
-                    
-                <td>@classroom.Title</td>
-                <td>
-                    @Html.ActionLink(
-                    linkText: classroom.Year1.ToString(),
-                    actionName: "Read",
-                    controllerName: "Year",
-                    routeValues: new
-                    {
-                        area="Administration",
-                        id = @classroom.Year_Id
-                    },
-                    htmlAttributes: new
-                    {
-                        @class = "",
-                        target = "_blank",
-                    }
-                )
-                </td>
-                <td>@classroom.User_Name</td>
-                <td>@Html.ActionLink(
-                    linkText: @classroom.Establishment_Name,
-                    actionName: "Read",
-                    controllerName: "Establishment",
-                    routeValues: new
-                      {
-                          id = @classroom.Establishment_Id
-                      },
-                    htmlAttributes: new
-                     {
-                         target = "_blank",
-                     }
-                )</td>
-                <td>
-                    @Html.ActionLink(
-                    linkText: "See",
-                    actionName: "Read",
-                    controllerName: "Classroom",
-                    routeValues: new
-                      {
-                          id = @classroom.Id
-                      },
-                    htmlAttributes: new
-                     {
-                         target = "_blank",
-                     }
-                )
-                </td>
-                <td>
-                    @Html.ActionLink(
-                    linkText: "Edit",
-                    actionName: "Edit",
-                    controllerName: "Classroom",
-                    routeValues: new
-                      {
-                          id = @classroom.Id
-                      },
-                    htmlAttributes: new
-                     {
-                         target = "_blank",
-                     }
-                )
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>

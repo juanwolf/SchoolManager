@@ -37,6 +37,18 @@ namespace SchoolManager.Models
             return context.Classrooms.Where(c => c.Establishment_Id == id);
         }
 
+        public IQueryable<Classroom> Search(String[] items)
+        {
+            IQueryable<Classroom> classrooms = context.Classrooms;
+            if (items[0] != "")
+            {
+                classrooms = classrooms.Where(s => items.Contains(s.Title)
+                        || items.Contains(s.User.LastName)
+                        || items.Contains(s.User.FirstName)
+                        || items.Contains(s.Establishment.Name));
+            }
+            return classrooms;
+        }
         public void Add(Classroom c)
         {
             context.Classrooms.Add(c);

@@ -227,5 +227,28 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
             }
             return RedirectToAction("Index"); ;
         }
+
+        [HttpPost]
+        public ActionResult Search(string query)
+        {
+            using (var entity = new Entities())
+            {
+                String[] results = query.Split(new Char[] { ' ', ',' });
+                var repo = new ClassroomRepository(entity);
+                var classrooms = repo.Search(results).Select(c => new ClassroomModel
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    User_Id = c.User_Id,
+                    Year_Id = c.Year_Id,
+                    Establishment_Id = c.Establishment_Id,
+                    Establishment_Name = c.Establishment.Name,
+                    Year1 = c.Year.Year1,
+                    User_Name = c.User.FirstName + " " + c.User.LastName,
+                }).ToList();
+
+                return PartialView("~/Areas/ClassManagement/Views/Shared/_ClassroomResults.cshtml", classrooms);
+            }
+        }
     }
 }
