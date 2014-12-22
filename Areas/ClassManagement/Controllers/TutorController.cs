@@ -22,7 +22,6 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
             t.Mail = tutor.Mail;
             t.PostCode = tutor.PostCode;
             t.Tel = tutor.Tel;
-            //t.Pupils = new Collection<Pupil>();
             t.Town = tutor.Town;
             t.Comment = tutor.Comment;
         }
@@ -78,7 +77,7 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     Tutor_Id = tutor.Id,
                     TutorName = tutor.FirstName + " " + tutor.LastName,
                     ClassroomTitle = p.Classroom.Title,
-                    Classroom_Id = p.Classroom_Id//Ajouter Classes, Resultats
+                    Classroom_Id = p.Classroom_Id
                 }).ToList();
                 tutor.pupils = pupils;
                 return View(tutor);
@@ -151,15 +150,26 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(Guid id)
+        public ActionResult Search(string query)
         {
             using (var entity = new Entities())
             {
+                String[] results = query.Split(new Char[] { ' ', ',' });
                 var repo = new TutorRepository(entity);
-                Tutor s = repo.getById(id).First();
-                repo.Delete(s);
-                repo.Save();
-                return RedirectToAction("Index", "Tutor");
+                var tutors = repo.Search(results).Select(s => new TutorModel
+                {
+                    Id = s.Id,
+                    FirstName = s.FirstName,
+                    LastName = s.LastName,
+                    Address = s.Address,
+                    PostCode = s.PostCode,
+                    Town = s.Town,
+                    Tel = s.Tel,
+                    Mail = s.Mail,
+                    Comment = s.Comment
+                }).ToList();
+
+                return PartialView("~/Areas/ClassManagement/Views/Shared/_TutorResults.cshtml", tutors);
             }
         }
     }

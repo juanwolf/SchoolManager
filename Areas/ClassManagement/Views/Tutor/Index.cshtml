@@ -4,72 +4,23 @@
 }
 
 <h2>Tutors</h2>
-   
-<table class="table">
-    <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Address</th>
-            <th>Post code</th>
-            <th>Town</th>
-            <th>@Html.ActionLink(
-                linkText: "Add Tutor",
-                actionName: "Create",
-                controllerName: "Tutor",
-                routeValues: new
-                {
-                },
-                htmlAttributes: new
-                {
-                    @class = "btn btn-default btn-sm",
-                    target = "_blank",
-                }
-            )
-</th>      
-            
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var tutor in Model)
+ <div id="search">
+    @using (Ajax.BeginForm("Search", "Tutor",
+        new AjaxOptions
         {
-            <tr>
-                <td>@tutor.FirstName</td>
-                <td>@tutor.LastName</td>
-                <td>@tutor.Address</td>
-                <td>@tutor.PostCode</td>
-                <td>@tutor.Town</td>
-                <td>
-                    @Html.ActionLink(
-                    linkText: "See",
-                    actionName: "Read",
-                    controllerName: "Tutor",
-                    routeValues: new
-                      {
-                          id = @tutor.Id
-                      },
-                    htmlAttributes: new
-                     {
-                         target = "_blank",
-                     }
-                )
-                </td>
-                <td>
-                    @Html.ActionLink(
-                    linkText: "Edit",
-                    actionName: "Edit",
-                    controllerName: "Tutor",
-                    routeValues: new
-                      {
-                          id = @tutor.Id
-                      },
-                    htmlAttributes: new
-                     {
-                         target = "_blank",
-                     }
-                )
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            UpdateTargetId = "TutorsArray",
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+        }, new { @class = "form-group" }))
+    {
+        <div class="input-group">
+            <input type="text" name="query" class="form-control" placeholder="Search..." />
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    }
+</div>
+<div id="TutorsArray">
+    @Html.Partial("~/Areas/ClassManagement/Views/Shared/_TutorResults.cshtml", @Model)
+</div> 

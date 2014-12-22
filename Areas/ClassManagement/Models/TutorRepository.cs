@@ -23,13 +23,22 @@ namespace SchoolManager.Models
             return context.Tutors.Where(t => t.Id == id);
         }
 
-        public void Add(Tutor t) {
-            context.Tutors.Add(t);
+        public IQueryable<Tutor> Search(String[] items)
+        {
+            IQueryable<Tutor> tutors = context.Tutors;
+            if (items[0] != "")
+            {
+                tutors = tutors.Where(s => items.Contains(s.FirstName)
+                        || items.Contains(s.LastName)
+                        || items.Contains(s.PostCode)
+                        || items.Contains(s.Town)
+                        || items.Contains(s.Mail));
+            }
+            return tutors;
         }
 
-        public void Delete(Tutor t)
-        {
-            
+        public void Add(Tutor t) {
+            context.Tutors.Add(t);
         }
 
         public void Save()
