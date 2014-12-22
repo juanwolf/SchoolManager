@@ -42,10 +42,13 @@ namespace SchoolManager.Models
         public IQueryable<Pupil> Search(String[] items)
         {
             IQueryable<Pupil> pupils = context.Pupils;
-            pupils = pupils.Where(s => items.Contains(s.FirstName)
-                    || items.Contains(s.LastName)
-                    || items.Contains(s.Classroom.Title)
-                    || items.Contains(s.Tutor.LastName));
+            if (items[0] != "")
+            {
+                pupils = pupils.Where(s => items.Contains(s.FirstName)
+                        || items.Contains(s.LastName)
+                        || items.Contains(s.Classroom.Title)
+                        || items.Contains(s.Tutor.LastName));
+            }
             return pupils;
         }
 

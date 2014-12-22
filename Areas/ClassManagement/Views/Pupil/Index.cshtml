@@ -11,9 +11,14 @@
             UpdateTargetId = "PupilsArray",
             HttpMethod = "POST",
             InsertionMode = InsertionMode.Replace,
-        }, new { @class="form-group" }))
+        }, new { @class = "form-group" }))
     {
-        <input type="text" name="query" class="form-control" />
+        <div class="input-group">
+            <input type="text" name="query" class="form-control" placeholder="Search..." />
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
     }
 </div>
 <div id="PupilsArray">
