@@ -228,6 +228,33 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult Search(string query)
+        {
+            using(var entity = new Entities()) 
+            {
+                String[] results = query.Split(new Char[] { ' ', ',' });
+                var repo = new PupilRepository(entity);
+                var pupils = repo.Search(results).Select(p => new PupilModel
+                {
+                    Id = p.Id,
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
+                    Sex = p.Sex,
+                    BirthdayDate = p.BirthdayDate,
+                    State = p.State,
+                    Tutor_Id = p.Tutor_Id,
+                    Classroom_Id = p.Classroom_Id,
+                    Level_Id = p.Level_Id,
+                    TutorName = p.Tutor.FirstName + " " + p.Tutor.LastName,
+                    LevelTitle = p.Level.Title,
+                    ClassroomTitle = p.Classroom.Title
+                }).ToList();
+                    
+                return PartialView("~/Areas/ClassManagement/Views/Shared/_PupilResults.cshtml", pupils);
+            }
+        }
+
         [HttpGet]
         public void GetPupils()
         {

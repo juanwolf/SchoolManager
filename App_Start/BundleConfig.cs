@@ -10,7 +10,7 @@ namespace SchoolManager
         {
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                         "~/Scripts/jquery-1.11.js", 
-
+                        "~/Scripts/jquery.unobtrusive-ajax.js",
                         "~/Scripts/bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(

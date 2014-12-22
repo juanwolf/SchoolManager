@@ -1,0 +1,126 @@
+﻿@model List<SchoolManager.Models.PupilModel>
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Sex</th>
+            <th>Birthday Date</th>
+            <th>Tutor</th>
+            <th>Classroom</th>
+            <th>Level</th>
+            <th>
+                @Html.ActionLink(
+                    linkText: "Add Pupil",
+                    actionName: "Create",
+                    controllerName: "Pupil",
+                    routeValues: new
+                    {
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "btn btn-default",
+                        target = "_blank",
+                    }
+                )
+            </th>
+            <th>
+                @Html.ActionLink(
+                    linkText: "Export Pupils",
+                    actionName: "GetPupils",
+                    controllerName: "Pupil",
+                    routeValues: new
+                    {
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "btn btn-default",
+                        target = "",
+                    }
+                )
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pupil in Model)
+        {
+            <tr>
+                <td>@pupil.FirstName</td>
+                <td>@pupil.LastName</td>
+                <td>@((SchoolManager.Models.PupilModel.Sexes)pupil.Sex)</td>
+                <td>@pupil.BirthdayDate.ToShortDateString()</td>
+                <td>
+                    @Html.ActionLink(
+                        linkText: pupil.TutorName,
+                        actionName: "Read",
+                        controllerName: "Tutor",
+                        routeValues: new
+                        {
+                            id = @pupil.Tutor_Id,
+                        },
+                        htmlAttributes: new { target = "_blank" }
+                    )
+                        
+                </td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: pupil.ClassroomTitle,
+                    actionName: "Read",
+                    controllerName: "Classroom",
+                    routeValues: new
+                      {
+                          id = @pupil.Classroom_Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
+                <td>
+                    @Html.ActionLink(
+                        linkText: pupil.LevelTitle,
+                        actionName: "Read",
+                        controllerName: "Level",
+                        routeValues: new
+                        {
+                            area = "Administration",
+                            id = @pupil.Level_Id
+                        },
+                        htmlAttributes: new { target = "_blank" }
+                    )
+                </td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Pupil",
+                    routeValues: new
+                      {
+                          id = @pupil.Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "Edit",
+                    actionName: "Edit",
+                    controllerName: "Pupil",
+                    routeValues: new
+                      {
+                          id = @pupil.Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
