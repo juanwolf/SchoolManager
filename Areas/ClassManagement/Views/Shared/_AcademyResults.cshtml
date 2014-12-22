@@ -1,0 +1,65 @@
+﻿@model List<SchoolManager.Areas.ClassManagement.Models.AcademyModel>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+
+            <th>
+                <button class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    @Html.ActionLink(
+                    linkText: "Add Academy",
+                    actionName: "Create",
+                    controllerName: "Academy",
+                    routeValues: new
+                    {
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "",
+                        target = "_blank",
+                    }
+                )
+                </button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var academy in Model)
+        {
+            <tr>
+                <td>@academy.Name</td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "See",
+                    actionName: "Read",
+                    controllerName: "Academy",
+                    routeValues: new
+                      {
+                          id = @academy.Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
+                <td>
+                    @Html.ActionLink(
+                    linkText: "Edit",
+                    actionName: "Edit",
+                    controllerName: "Academy",
+                    routeValues: new
+                      {
+                          id = @academy.Id
+                      },
+                    htmlAttributes: new
+                     {
+                         target = "_blank",
+                     }
+                )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

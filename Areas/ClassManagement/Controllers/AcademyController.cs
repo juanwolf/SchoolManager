@@ -116,5 +116,22 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
             }
             return View("~/Areas/ClassManagement/Views/Academy/Read.cshtml", academy);
         }
+
+        [HttpPost]
+        public ActionResult Search(string query)
+        {
+            using (var entity = new Entities())
+            {
+                String[] results = query.Split(new Char[] { ' ', ',' });
+                var repo = new AcademyRepository(entity);
+                var academies = repo.Search(results).Select(a => new AcademyModel
+                {
+                    Id = a.Id,
+                    Name = a.Name
+                }).ToList();
+
+                return PartialView("~/Areas/ClassManagement/Views/Shared/_AcademyResults.cshtml", academies);
+            }
+        }
     }
 }

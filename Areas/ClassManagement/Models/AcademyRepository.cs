@@ -25,6 +25,16 @@ namespace SchoolManager.Areas.ClassManagement.Models
             return context.Academies.Where(r => r.Id == id);
         }
 
+        public IQueryable<Academy> Search(String[] items)
+        {
+            IQueryable<Academy> academies = context.Academies;
+            if (items[0] != "")
+            {
+                academies = academies.Where(a => items.Contains(a.Name));
+            }
+            return academies;
+        }
+
         public void Add(Academy a)
         {
             context.Academies.Add(a);
