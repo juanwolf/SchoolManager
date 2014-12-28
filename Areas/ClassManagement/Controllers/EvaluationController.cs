@@ -180,7 +180,7 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                 resultRepo.Save();
 
             }
-            return RedirectToAction("Read", results[0].Evaluation_Id);
+            return RedirectToAction("Read", new { id = results[0].Evaluation_Id });
         }
 
         [HttpGet]

@@ -12,9 +12,28 @@
             <th>Period</th>
             <th>Classroom</th>
             <th>User</th>
-
             <th>Date</th>
             <th>TotalPoint</th>
+            @if (!Model.HasResults)
+            {
+                <th>
+                    @Html.ActionLink(
+                        linkText: "Add Results",
+                        actionName: "AddResults",
+                        controllerName: "Evaluation",
+                        routeValues: new
+                          {
+                              id = @Model.Id
+                          },
+                        htmlAttributes: new
+                         {
+                             @class = "btn btn-default btn-sm",
+                             target = "_blank",
+                         }
+                    )
+
+                </th>
+            }
         </tr>
     </thead>
     <tbody>
