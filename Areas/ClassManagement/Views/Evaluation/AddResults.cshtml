@@ -82,26 +82,33 @@
 </table>
 
 @{Html.BeginForm("AddResults", "Evaluation", FormMethod.Post, new { @class = "form-horizontal" });}
-<table class="table">
-    <thead>
-        <tr class="row">
-            <th class="col-sm-6">Pupil</th>
-            <th class="col-sm-6">Result</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (int i = 0; i < pupils.Count; i++)
-        {
-            <tr class="row">
-                @Html.HiddenFor(r => r[i].Pupil_Id, new { Value = pupils[i].Id})
-                @Html.HiddenFor(r => r[i].Evaluation_Id, new { Value = eval.Id })
-                <td class="col-sm-6">@pupils[i].FirstName @pupils[i].LastName</td>
-                <td class="col-sm-6">@Html.TextBoxFor(r => r[i].Note, new { type="number", @class="form-control", min="0", max=eval.TotalPoint })</td>
-            </tr>
-            
-        }
-    </tbody>
-</table>
+<div class="form-group">
+     <div class="col-sm-offset-2 col-sm-8">
+        <table class="table">
+            <thead>
+                <tr class="row">
+                    <th class="col-sm-6">Pupil</th>
+                    <th class="col-sm-6">Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < pupils.Count; i++)
+                {
+                    <tr class="row">
+                        @Html.HiddenFor(r => r[i].Pupil_Id, new { Value = pupils[i].Id })
+                        @Html.HiddenFor(r => r[i].Evaluation_Id, new { Value = eval.Id })
+                        <td class="col-sm-6">@pupils[i].FirstName @pupils[i].LastName</td>
+                        <td class="col-sm-6">@Html.TextBoxFor(r => r[i].Note, new { type = "number", @class = "form-control", min = "0", max = eval.TotalPoint })</td>
+                    </tr>
 
-<input class="btn btn-primary" type="submit" value="Valider" />
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <input type="submit" value="Add Results" class="btn btn-primary" />
+    </div>
+</div>
 @{Html.EndForm();}

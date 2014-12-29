@@ -12,46 +12,82 @@
 @{Html.BeginForm("Edit", "Evaluation", FormMethod.Post, new { @class = "form-horizontal" });}
 @Html.HiddenFor(p => p.Id)
 
-@Html.LabelFor(p => p.Date)
-<input type="date" class="form-control" placeholder="Date" id="Date" name="Date" value="@date" />
+<div class="form-group @if (!ViewData.ModelState.IsValidField("Date")) { @Html.Raw("has-error") ; }">
+    @Html.LabelFor(t => t.Date, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-10 controls">
+        <div class="row">
+            <div class="col-sm-8">
+                <input type="date" class="form-control" placeholder="Date" id="Date" name="Date" value="@date" />
+            </div>
+            <div class="col-sm-4">
+                @Html.ValidationMessageFor(t => t.Date, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
 
-@Html.LabelFor(p => p.TotalPoint)
-@Html.TextBoxFor(p => p.TotalPoint, new { @class = "form-control", @type = "number" })
 
 
-<label>Period</label>
-<select class="form-control" id="Period_Id" name="Period_Id">
-    @foreach (var period in periods)
-    {
-        if (period.Id == @Model.Period_Id)
-        {
-            <option selected="selected" value="@period.Id">@period.Begin.ToShortDateString() - @period.End.ToShortDateString()</option>
-        }
-        else
-        {
-            <option value="@period.Id">@period.Begin.ToShortDateString() - @period.End.ToShortDateString()</option>
-        }
-    }
-</select>
+<div class="form-group @if (!ViewData.ModelState.IsValidField("TotalPoint")) { @Html.Raw("has-error") ; }">
+    @Html.LabelFor(t => t.TotalPoint, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-10 controls">
+        <div class="row">
+            <div class="col-sm-8">
+                @Html.TextBoxFor(t => t.TotalPoint, new { @class = "form-control", @type = "number" })
+            </div>
+            <div class="col-sm-4">
+                @Html.ValidationMessageFor(t => t.TotalPoint, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
 
-<label for="Classroom_Id" class="">Classroom</label>
-<select class="form-control" id="Classroom_Id" name="Classroom_Id">
-    @foreach (var classroom in classrooms)
-    {
-        if (classroom.Id == @Model.Classroom_Id)
-        {
-            <option selected="selected" value="@classroom.Id">@classroom.Title | @classroom.Establishment_Name | @classroom.User_Name | @classroom.Year1.ToString()</option>
-        }
-        else
-        {
-            <option value="@classroom.Id">@classroom.Title | @classroom.Establishment_Name | @classroom.User_Name | @classroom.Year1.ToString()</option>
-        }
-    }
-</select>
-<input class="btn btn-primary" type="submit" value="Valider" />
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">Period</label>
+    <div class="col-sm-10">
+        <select class="form-control" id="Period_Id" name="Period_Id">
+            @foreach (var period in periods)
+            {
+                if (period.Id == @Model.Period_Id)
+                {
+                    <option selected="selected" value="@period.Id">@period.Begin.ToShortDateString() - @period.End.ToShortDateString()</option>
+                }
+                else
+                {
+                    <option value="@period.Id">@period.Begin.ToShortDateString() - @period.End.ToShortDateString()</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Classroom</label>
+    <div class="col-sm-10">
+        <select class="form-control" id="Classroom_Id" name="Classroom_Id">
+            @foreach (var classroom in classrooms)
+            {
+                if (classroom.Id == @Model.Classroom_Id)
+                {
+                    <option selected="selected" value="@classroom.Id">@classroom.Title | @classroom.Establishment_Name | @classroom.User_Name | @classroom.Year1.ToString()</option>
+                }
+                else
+                {
+                    <option value="@classroom.Id">@classroom.Title | @classroom.Establishment_Name | @classroom.User_Name | @classroom.Year1.ToString()</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <input type="submit" value="Edit" class="btn btn-primary" />
+    </div>
+</div>
 @{Html.EndForm();}
-
 @{Html.RenderPartial("_EditResults", Model.Results);}
+
 
 
 

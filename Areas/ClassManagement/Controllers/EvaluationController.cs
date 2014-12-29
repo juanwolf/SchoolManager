@@ -11,6 +11,30 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
     public class EvaluationController : Controller
     {
 
+        private void setViewData()
+        {
+            using (var entity = new Entities())
+            {
+                ClassroomRepository classroomRepo = new ClassroomRepository(entity);
+                PeriodRepository periodRepo = new PeriodRepository(entity);
+                ViewData["classrooms"] = classroomRepo.All().Select(c => new ClassroomModel
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    User_Id = c.User.Id,
+                    User_Name = c.User.FirstName + " " + c.User.LastName,
+                    Year1 = c.Year.Year1,
+                    Establishment_Name = c.Establishment.Name
+                }).ToList();
+                ViewData["periods"] = periodRepo.All().Select(p => new PeriodModel
+                {
+                    Id = p.Id,
+                    Begin = p.Begin,
+                    End = p.End
+                }).ToList();
+            }
+        }
+
         private void convertResultModelToResult(ResultModel result, Result r)
         {
             r.Id = result.Id;
@@ -75,21 +99,7 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                 {
                     eval.Classroom_Id = (Guid)Classroom_Id;
                 }
-                ViewData["classrooms"] = classroomRepo.All().Select(c => new ClassroomModel
-                {
-                    Id = c.Id,
-                    Title = c.Title,
-                    User_Id = c.User.Id,
-                    User_Name = c.User.FirstName + " " + c.User.LastName,
-                    Year1 = c.Year.Year1,
-                    Establishment_Name = c.Establishment.Name
-                }).ToList();
-                ViewData["periods"] = periodRepo.All().Select(p => new PeriodModel
-                {
-                    Id = p.Id,
-                    Begin = p.Begin,
-                    End = p.End
-                }).ToList();
+                setViewData();
                 return View(eval);
             }
         }
@@ -113,6 +123,7 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     return RedirectToAction("Read", new { @id = eval.Id });
                 }
             }
+            setViewData();
             return View(eval);
         }
 
@@ -225,9 +236,6 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
         {
             using(var entity = new Entities()) {
                 EvaluationRepository evalRepo = new EvaluationRepository(entity);
-                ClassroomRepository classroomRepo = new ClassroomRepository(entity);
-                PeriodRepository periodRepo = new PeriodRepository(entity);
-                UserRepository userRepo = new UserRepository(entity);
                 ResultRepository resultRepo = new ResultRepository(entity);
                 EvaluationModel eval = evalRepo.getById(id).Select(e => new EvaluationModel
                 {
@@ -245,22 +253,8 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     TotalPoint = e.TotalPoint,
                     Results_Number = e.Results.Count
                 }).First();
-                ViewData["classrooms"] = classroomRepo.All().Select(c => new ClassroomModel
+                eval.Results = resultRepo.getByEvaluation(id).Select(r => new ResultModel
                 {
-                    Id = c.Id,
-                    Title = c.Title,
-                    User_Id = c.User.Id,
-                    User_Name = c.User.FirstName + " " + c.User.LastName,
-                    Year1 = c.Year.Year1,
-                    Establishment_Name = c.Establishment.Name
-                }).ToList();
-                ViewData["periods"] = periodRepo.All().Select(p => new PeriodModel
-                {
-                    Id = p.Id,
-                    Begin = p.Begin,
-                    End = p.End
-                }).ToList();
-                eval.Results = resultRepo.getByEvaluation(id).Select(r => new ResultModel {
                     Id = r.Id,
                     Note = r.Note,
                     Evaluation_Id = r.Evaluation.Id,
@@ -269,6 +263,9 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     Pupil_Id = r.Pupil_Id,
                     Pupil_Name = r.Pupil.FirstName + " " + r.Pupil.LastName
                 }).ToList();
+                setViewData();
+
+                
                 return View(eval);
             }
         }
@@ -289,7 +286,9 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                 return RedirectToAction("Read", new { @id = eval.Id });
                 }
             }
-            return View(eval);
+            setViewData();
+
+            return RedirectToAction("Edit", eval);
         }
 
         [HttpPost]
