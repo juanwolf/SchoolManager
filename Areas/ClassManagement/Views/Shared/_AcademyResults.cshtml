@@ -5,8 +5,7 @@
             <th>Name</th>
 
             <th>
-                <button class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-plus"></span>
+                
                     @Html.ActionLink(
                     linkText: "Add Academy",
                     actionName: "Create",
@@ -16,11 +15,10 @@
                     },
                     htmlAttributes: new
                     {
-                        @class = "",
+                        @class = "btn btn-default btn-sm",
                         target = "_blank",
                     }
                 )
-                </button>
             </th>
         </tr>
     </thead>
