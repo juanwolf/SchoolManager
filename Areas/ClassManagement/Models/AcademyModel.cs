@@ -16,7 +16,7 @@ namespace SchoolManager.Areas.ClassManagement.Models
         }
 
         [Required(ErrorMessage="The Name of the academy is required")]
-        [RegularExpression("^[a-zàâçéèêëîïôûùüÿñæœ .-]+$/i", ErrorMessage = "Invalid Name (forbiddent character <>@^¨£$µ%!§/")]
+        [RegularExpression("^[0-9A-Za-zÀÈÌÒÙÉÊàâçéèêëîïôûùüÿñæœ .-]+$", ErrorMessage = "Invalid Name (forbiddent character <>@^¨£$µ%!§/")]
         public String Name
         {
             get;
