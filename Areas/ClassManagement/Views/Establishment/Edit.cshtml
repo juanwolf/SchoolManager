@@ -4,47 +4,105 @@
 }
 
 <h2>Edit Establishment</h2>
-@{Html.BeginForm("Edit", "Establishment");}
+@{Html.BeginForm("Edit", "Establishment", FormMethod.Post, new { @class = "form-horizontal" });}
 @Html.HiddenFor(t => t.id)
 
-@Html.LabelFor(t => t.Name)
-@Html.TextBoxFor(t => t.Name)
+<div class="form-group @if (!ViewData.ModelState.IsValidField("Name")) { @Html.Raw("has-error") ; }">
+    @Html.LabelFor(t => t.Name, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-10 controls">
+        <div class="row">
+            <div class="col-sm-8">
+                @Html.TextBoxFor(t => t.Name, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-4">
+                @Html.ValidationMessageFor(t => t.Name, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
 
-@Html.LabelFor(t => t.Address)
-@Html.TextBoxFor(t => t.Address)
+<div class="form-group @if (!ViewData.ModelState.IsValidField("Address")) { @Html.Raw("has-error") ; }">
+    @Html.LabelFor(t => t.Address, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-10 controls">
+        <div class="row">
+            <div class="col-sm-8">
+                @Html.TextBoxFor(t => t.Address, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-4">
+                @Html.ValidationMessageFor(t => t.Address, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
 
-@Html.LabelFor(t => t.PostCode)
-@Html.TextBoxFor(t => t.PostCode)
+<div class="form-group @if (!ViewData.ModelState.IsValidField("PostCode")) { @Html.Raw("has-error") ; }">
+    @Html.LabelFor(t => t.PostCode, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-10 controls">
+        <div class="row">
+            <div class="col-sm-8">
+                @Html.TextBoxFor(t => t.PostCode, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-4">
+                @Html.ValidationMessageFor(t => t.PostCode, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
 
-@Html.LabelFor(t => t.Town)
-@Html.TextBoxFor(t => t.Town)
-<span>Academy</span>
-<select id="Academie_Id" name="Academie_Id">
-    @foreach (var academy in (List<SchoolManager.Areas.ClassManagement.Models.AcademyModel>)ViewData["academies"])
-    {
-        if (academy.Id == @Model.Academie_Id)
-        {
-            <option selected="selected" value="@academy.Id">@academy.Name</option>
-        }
-        <option value="@academy.Id">@academy.Name</option>
-    }
-</select>
-<span>User</span>
-<select id="User_Id" name="User_Id">
-    @foreach (var user in (List<SchoolManager.Areas.ClassManagement.Models.UserModel>)ViewData["users"])
-    {
-        if (user.Id == @Model.User_Id)
-        {
-            <option value="@user.Id">@user.FirstName  @user.LastName</option>
-        } 
-        else
-        { 
-        <option value="@user.Id">@user.FirstName  @user.LastName</option>
-        }
-    }
-</select>
+<div class="form-group @if (!ViewData.ModelState.IsValidField("Town")) { @Html.Raw("has-error") ; }">
+    @Html.LabelFor(t => t.Town, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-10 controls">
+        <div class="row">
+            <div class="col-sm-8">
+                @Html.TextBoxFor(t => t.Town, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-4">
+                @Html.ValidationMessageFor(t => t.Town, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="form-group">
+    <label class="col-sm-2 control-label">Academy</label>
+    <div class="col-sm-10">
+        <select class="form-control" id="Academie_Id" name="Academie_Id">
+            @foreach (var academy in (List<SchoolManager.Areas.ClassManagement.Models.AcademyModel>)ViewData["academies"])
+            {
+                if (academy.Id == @Model.Academie_Id)
+                {
+                    <option selected="selected" value="@academy.Id">@academy.Name</option>
+                }
+                else
+                {
+                    <option value="@academy.Id">@academy.Name</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">User</label>
+    <div class="col-sm-10">
+        <select class="form-control" id="User_Id" name="User_Id">
+            @foreach (var user in (List<SchoolManager.Areas.ClassManagement.Models.UserModel>)ViewData["users"])
+            {
+                if (user.Id == @Model.User_Id)
+                {
+                    <option value="@user.Id">@user.FirstName  @user.LastName</option>
+                }
+                else
+                {
+                    <option value="@user.Id">@user.FirstName  @user.LastName</option>
+                }
+            }
+        </select>
+    </div>
+</div>
 
-
-<input type="submit" value="Valider" />
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <input type="submit" value="Edit" class="btn btn-primary" />
+    </div>
+</div>
 @{Html.EndForm();}

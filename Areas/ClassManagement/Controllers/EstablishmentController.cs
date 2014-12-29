@@ -10,8 +10,26 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
 {
     public class EstablishmentController : Controller
     {
-        //
-        // GET: /ClassManagement/Establishment/
+
+        private void setViewData()
+        {
+            using (var entity = new Entities())
+            {
+                AcademyRepository academy = new AcademyRepository(entity);
+                UserRepository userRepo = new UserRepository(entity);
+                ViewData["academies"] = academy.All().Select(u => new AcademyModel
+                {
+                    Id = u.Id,
+                    Name = u.Name
+                }).ToList();
+                ViewData["users"] = userRepo.All().Select(u => new UserModel
+                {
+                    Id = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                }).ToList();
+            }
+        }
 
         public void convertEstablishmentModelToEstablishment(EstablishmentModel establishment, Establishment e)
         {
@@ -89,17 +107,7 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                 {
                     establishment.Academie_Id = (Guid)Academy_Id;
                 }
-                AcademyRepository academy = new AcademyRepository(entity);
-                UserRepository userRepo = new UserRepository(entity);
-                ViewData["academies"] = academy.All().Select(u => new AcademyModel {
-                    Id = u.Id,
-                    Name = u.Name
-                }).ToList();
-                ViewData["users"] = userRepo.All().Select(u => new UserModel {
-                    Id = u.Id,
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                }).ToList();
+                setViewData();
                 return View(establishment);
             }
         }
@@ -119,9 +127,11 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     repo.Add(e);
                     repo.Save();
                 }
-
+                return RedirectToAction("Read", new { id = establishment.id });
             }
-            return View("~/Areas/ClassManagement/Views/Establishment/Read.cshtml", establishment.id);
+            setViewData();
+            return View(establishment);
+            
         }
 
         [HttpGet]
@@ -169,9 +179,12 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     convertEstablishmentModelToEstablishment(establishment, e);
                     repo.Save();
                 }
-
+                return RedirectToAction("Read", new { id = establishment.id });
             }
-            return View("~/Areas/ClassManagement/Views/Establishment/Read.cshtml", establishment);
+            setViewData();
+            return View(establishment);
+
+            
         }
 
         [HttpPost]
