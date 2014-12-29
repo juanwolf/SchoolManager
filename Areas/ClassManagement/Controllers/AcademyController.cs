@@ -116,9 +116,10 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     convertAcademyModelToAcademy(academy, a);
                     repo.Save();
                 }
-
+                return View("~/Areas/ClassManagement/Views/Academy/Read.cshtml", academy);
             }
-            return View("~/Areas/ClassManagement/Views/Academy/Read.cshtml", academy);
+            return View(academy);
+           
         }
 
         [HttpPost]
