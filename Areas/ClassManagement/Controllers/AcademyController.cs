@@ -80,9 +80,13 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     repo.Add(a);
                     repo.Save();
                 }
-
+                return RedirectToAction("Read", new { id = academy.Id });
             }
-            return View("~/Areas/ClassManagement/Views/Academy/Read.cshtml", academy.Id);
+            else
+            {
+                return View(academy);
+            }
+            
         }
 
         [HttpGet]

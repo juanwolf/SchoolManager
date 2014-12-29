@@ -8,9 +8,22 @@
 @{Html.BeginForm("Create", "Academy", FormMethod.Post, new { @class = "form-horizontal" });}
 @Html.HiddenFor(t => t.Id)
 
-@Html.LabelFor(t => t.Name)
-@Html.TextBoxFor(t => t.Name, new { @class = "form-control" })
-
-
-<input type="submit" value="Valider" class="btn btn-primary" />
+<div class="form-group @if (!ViewData.ModelState.IsValidField("Name")) { @Html.Raw("has-error") ; }">
+    @Html.LabelFor(t => t.Name, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-10 controls">
+        <div class="row">
+            <div class="col-sm-8">
+                @Html.TextBoxFor(t => t.Name, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-4">
+                @Html.ValidationMessageFor(t => t.Name, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <input type="submit" value="Valider" class="btn btn-primary" />
+    </div>
+</div>
 @{Html.EndForm();}
