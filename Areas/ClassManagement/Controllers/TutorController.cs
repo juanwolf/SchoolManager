@@ -104,10 +104,13 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     convertTutorModelToTutor(tutor, t);
                     repo.Add(t);
                     repo.Save();
+                    return RedirectToAction("Index");
                 }
-                
+
             }
-            return View("~/Areas/ClassManagement/Views/Tutor/Index.cshtml", tutor);
+
+                return View(tutor);
+            
         }
 
         [HttpGet]
@@ -144,9 +147,10 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     convertTutorModelToTutor(tutor, t);
                     repo.Save();
                 }
-
+                return RedirectToAction("Read", new { id = tutor.Id });
             }
-            return View("~/Areas/ClassManagement/Views/Tutor/Read.cshtml", tutor);
+            return View(tutor);
+            
         }
 
         [HttpPost]
