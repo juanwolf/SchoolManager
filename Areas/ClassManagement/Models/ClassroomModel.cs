@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace SchoolManager.Models
@@ -13,24 +15,29 @@ namespace SchoolManager.Models
             set;
         }
 
+        [Required(ErrorMessage = "Title is required")]
+        [RegularExpression("^[0-9A-Za-zÀÈÌÒÙÉÊàâçéèêëîïôûùüÿñæœ .-]+$", ErrorMessage = "Invalid Title (forbidden character <>@^¨£$µ%!§/")]
         public String Title
         {
             get;
             set;
         }
 
+        [Required]
         public Guid User_Id
         {
             get;
             set;
         }
 
+        [Required]
         public Guid Year_Id
         {
             get;
             set;
         }
 
+        [Required]
         public Guid Establishment_Id
         {
             get;

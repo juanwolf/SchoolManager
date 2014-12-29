@@ -9,39 +9,61 @@
 @{Html.BeginForm("Create", "Classroom", FormMethod.Post, new { @class="form-horizontal"});}
 @Html.HiddenFor(t => t.Id)
 
-@Html.LabelFor(t => t.Title)
-@Html.TextBoxFor(t => t.Title, new { @class="form-control" })
+<div class="form-group @if (!ViewData.ModelState.IsValidField("Title")) { @Html.Raw("has-error") ; }">
+    @Html.LabelFor(t => t.Title, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-10 controls">
+        <div class="row">
+            <div class="col-sm-8">
+                @Html.TextBoxFor(t => t.Title, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-4">
+                @Html.ValidationMessageFor(t => t.Title, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
 
-<label>Establishment and teacher</label>
-<select class="form-control" id="Establishment_Id" name="Establishment_Id">
-    @foreach (var establishment in establishmentDico.Keys)
-    {
-        if (establishment.id.Equals(Model.Establishment_Id))
-        {
-            <option selected="selected" value="@establishment.id">@establishment.Name with @establishmentDico[establishment].FirstName @establishmentDico[establishment].LastName</option>
-        }
-        else
-        {
-            <option value="@establishment.id">@establishment.Name with @establishmentDico[establishment].FirstName @establishmentDico[establishment].LastName</option>
-        }
-    }
-</select>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Establishment and teacher</label>
+    <div class="col-sm-10">
+        <select class="form-control" id="Establishment_Id" name="Establishment_Id">
+            @foreach (var establishment in establishmentDico.Keys)
+            {
+                if (@establishment.id == @Model.Establishment_Id)
+                {
+                    <option selected="selected" value="@establishment.id">@establishment.Name with @establishmentDico[establishment].FirstName @establishmentDico[establishment].LastName</option>
+                }
+                else
+                {
+                    <option value="@establishment.id">@establishment.Name with @establishmentDico[establishment].FirstName @establishmentDico[establishment].LastName</option>
+                }
+            }
+        </select>
+    </div>
+</div>
 
-<label for="Year_Id" class="">Year</label>
-<select class="form-control" id="Year_Id" name="Year_Id">
-    @foreach (var year in (List<SchoolManager.Models.YearModel>)ViewData["years"])
-    {
-        
-        if(year.Id.Equals(Model.Year_Id)) {
-            <option selected="selected" value="@year.Id">@year.Year1</option>
-        }
-        else
-        {
-            <option value="@year.Id">@year.Year1</option>
-        }
-    }
-</select>
+<div class="form-group">
+    <label for="Year_Id" class="col-sm-2 control-label">Year</label>
+    <div class="col-sm-10">
+        <select class="form-control" id="Year_Id" name="Year_Id">
+            @foreach (var year in (List<SchoolManager.Models.YearModel>)ViewData["years"])
+            {
+                if (@year.Id == Model.Year_Id)
+                {
+                    <option selected="selected" value="@year.Id">@year.Year1</option>
+                }
+                else
+                {
+                    <option value="@year.Id">@year.Year1</option>
+                }
+            }
+        </select>
+    </div>
+</div>
 
-
-<input class="btn btn-primary"type="submit" value="Valider" />
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</div>
 @{Html.EndForm();}
