@@ -12,8 +12,41 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
 {
     public class PupilController : Controller
     {
-        //
-        // GET: /Pupil/
+
+        public void setViewData()
+        {
+            using (var entity = new Entities())
+            {
+                LevelRepository levelRepo = new LevelRepository(entity);
+                TutorRepository tutorRepo = new TutorRepository(entity);
+                ClassroomRepository classroomRepo = new ClassroomRepository(entity);
+                var levels = levelRepo.All().Select(u => new LevelModel
+                {
+                    Id = u.Id,
+                    Title = u.Title,
+                    CycleName = u.Cycle.Title
+                }).ToList();
+                ViewData["levels"] = levels;
+                var classrooms = classroomRepo.All().Select(c => new ClassroomModel
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    User_Name = c.User.FirstName + " " + c.User.LastName,
+                    Year1 = c.Year.Year1,
+                    Establishment_Name = c.Establishment.Name
+                }).ToList();
+                ViewData["classrooms"] = classrooms;
+                var tutors = tutorRepo.All().Select(t => new TutorModel
+                {
+                    Id = t.Id,
+                    FirstName = t.FirstName,
+                    LastName = t.LastName
+                }).ToList();
+                ViewData["tutors"] = tutors;
+            }
+        }
+        
+
         public void convertPupilModelToPupil(PupilModel pupil, Pupil p)
         {
             p.Id = pupil.Id;
@@ -103,32 +136,7 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                 {
                     pupil.Classroom_Id = (Guid)Classroom_Id;
                 }
-                LevelRepository levelRepo = new LevelRepository(entity);
-                TutorRepository tutorRepo = new TutorRepository(entity);
-                ClassroomRepository classroomRepo = new ClassroomRepository(entity);
-                var levels = levelRepo.All().Select(u => new LevelModel
-                {
-                    Id = u.Id,
-                    Title = u.Title,
-                    CycleName = u.Cycle.Title
-                }).ToList();
-                ViewData["levels"] = levels;
-                var classrooms = classroomRepo.All().Select(c => new ClassroomModel
-                {
-                    Id = c.Id,
-                    Title = c.Title,
-                    User_Name = c.User.FirstName + " " + c.User.LastName,
-                    Year1 = c.Year.Year1,
-                    Establishment_Name = c.Establishment.Name
-                }).ToList();
-                ViewData["classrooms"] = classrooms;
-                var tutors = tutorRepo.All().Select(t => new TutorModel
-                {
-                    Id = t.Id,
-                    FirstName = t.FirstName,
-                    LastName = t.LastName
-                }).ToList();
-                ViewData["tutors"] = tutors;
+                setViewData();
                 return View(pupil);
             }
         }
@@ -152,6 +160,7 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
             }
             else
             {
+                setViewData();
                 return View(pupil);
             }
         }
@@ -180,29 +189,7 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
                     LevelTitle = p.Level.Title,
                     ClassroomTitle = p.Classroom.Title
                 }).First();
-                var levels = levelRepo.All().Select(u => new LevelModel
-                {
-                    Id = u.Id,
-                    Title = u.Title,
-                    CycleName = u.Cycle.Title
-                }).ToList();
-                ViewData["levels"] = levels;
-                var classrooms = classroomRepo.All().Select(c => new ClassroomModel
-                {
-                    Id = c.Id,
-                    Title = c.Title,
-                    User_Name = c.User.FirstName + " " + c.User.LastName,
-                    Year1 = c.Year.Year1,
-                    Establishment_Name = c.Establishment.Name
-                }).ToList();
-                ViewData["classrooms"] = classrooms;
-                var tutors = tutorRepo.All().Select(t => new TutorModel
-                {
-                    Id = t.Id,
-                    FirstName = t.FirstName,
-                    LastName = t.LastName
-                }).ToList();
-                ViewData["tutors"] = tutors;
+                setViewData();
                 return View(pupil);
             }
         }
@@ -224,7 +211,8 @@ namespace SchoolManager.Areas.ClassManagement.Controllers
             }
             else
             {
-                return RedirectToAction("Edit", new { id = pupil.Id });
+                setViewData();
+                return View(pupil);
             }
         }
 

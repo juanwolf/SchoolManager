@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -31,12 +32,16 @@ namespace SchoolManager.Models
             set;
         }
 
+        [Required]
+        [RegularExpression("^[A-Za-zÀÈÌÒÙÉÊàâçéèêëîïôûùüÿñæœ .-]+$", ErrorMessage = "Invalid First Name (forbidden character <>@^¨£$µ%!§/")]
         public String FirstName
         {
             get;
             set;
         }
 
+        [Required]
+        [RegularExpression("^[A-Za-zÀÈÌÒÙÉÊàâçéèêëîïôûùüÿñæœ .-]+$", ErrorMessage = "Invalid Last Name (forbidden character <>@^¨£$µ%!§/")]
         public String LastName {
             get; set;
         }
@@ -51,6 +56,7 @@ namespace SchoolManager.Models
             Male=1, Female
         }
 
+        [Required]
         public DateTime BirthdayDate
         {
             get;
