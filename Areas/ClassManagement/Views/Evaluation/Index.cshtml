@@ -25,7 +25,6 @@
                     htmlAttributes: new
                     {
                         @class = "btn btn-default btn-sm",
-                        target = "_blank",
                     }
                 )
             </th>
@@ -38,52 +37,53 @@
 
                 <td>
                     @Html.ActionLink(
-                    linkText: eval.Year1.ToString(),
-                    actionName: "Read",
-                    controllerName: "Year",
-                    routeValues: new
-                    {
-                        area="Administration",
-                        id = eval.Year_Id
-                    },
-                    htmlAttributes: new
-                    {
-                        @class = "",
-                        target = "_blank",
-                    }
-                )
+                        linkText: eval.Year1.ToString(),
+                        actionName: "Read",
+                        controllerName: "Year",
+                        routeValues: new
+                        {
+                            area="Administration",
+                            id = eval.Year_Id
+                        },
+                        htmlAttributes: new
+                        {
+                            @class = "",
+                            target = "_blank",
+                        }
+                    )
             </td>
                 <td>
                     @Html.ActionLink(
-                    linkText: eval.Period_Begin.ToShortDateString() + " - " + eval.Period_End.ToShortDateString() ,
-                    actionName: "Read",
-                    controllerName: "Period",
-                    routeValues: new
-                    {
-                        area="Administration",
-                        id = eval.Period_Id
-                    },
-                    htmlAttributes: new
-                    {
-                        @class = "",
-                        target = "_blank",
-                    }
-                )
+                        linkText: eval.Period_Begin.ToShortDateString() + " - " + eval.Period_End.ToShortDateString() ,
+                        actionName: "Read",
+                        controllerName: "Period",
+                        routeValues: new
+                        {
+                            area="Administration",
+                            id = eval.Period_Id
+                        },
+                        htmlAttributes: new
+                        {
+                            @class = "",
+                            target = "_blank",
+                        }
+                    )
             </td>
                 <td>@Html.ActionLink(
-                    linkText: eval.Classroom_Title,
-                    actionName: "Read",
-                    controllerName: "Classroom",
-                    routeValues: new
-                    {
-                        id=eval.Classroom_Id
-                    },
-                    htmlAttributes: new
-                    {
-                        @class = "",
-                        target = "_blank",
-                    }
-                )</td>
+                        linkText: eval.Classroom_Title,
+                        actionName: "Read",
+                        controllerName: "Classroom",
+                        routeValues: new
+                        {
+                            id=eval.Classroom_Id
+                        },
+                        htmlAttributes: new
+                        {
+                            @class = "",
+                            target = "_blank",
+                        }
+                    )
+                </td>
                 <td>@eval.User_Name</td>
                 
                 <td>@eval.Date.ToShortDateString()</td>
@@ -92,39 +92,8 @@
                 </td>
                 <td>
                     @Html.ActionLink(
-                    linkText: "See",
-                    actionName: "Read",
-                    controllerName: "Evaluation",
-                    routeValues: new
-                      {
-                          id = @eval.Id
-                      },
-                    htmlAttributes: new
-                     {
-                         target = "_blank",
-                     }
-                )
-                </td>
-                <td>
-                    @Html.ActionLink(
-                    linkText: "Edit",
-                    actionName: "Edit",
-                    controllerName: "Evaluation",
-                    routeValues: new
-                      {
-                          id = @eval.Id
-                      },
-                    htmlAttributes: new
-                     {
-                         target = "_blank",
-                     }
-                )
-                </td>
-                @if (!eval.HasResults) { 
-                    <td>
-                        @Html.ActionLink(
-                        linkText: "Add Results",
-                        actionName: "AddResults",
+                        linkText: "See",
+                        actionName: "Read",
                         controllerName: "Evaluation",
                         routeValues: new
                           {
@@ -132,12 +101,42 @@
                           },
                         htmlAttributes: new
                          {
-                             @class="btn btn-default btn-sm",
                              target = "_blank",
                          }
                     )
-                    
                 </td>
+                <td>
+                    @Html.ActionLink(
+                        linkText: "Edit",
+                        actionName: "Edit",
+                        controllerName: "Evaluation",
+                        routeValues: new
+                          {
+                              id = @eval.Id
+                          },
+                        htmlAttributes: new
+                         {
+                             target = "_blank",
+                         }
+                    )
+                </td>
+                @if (!eval.HasResults) { 
+                    <td>
+                        @Html.ActionLink(
+                            linkText: "Add Results",
+                            actionName: "AddResults",
+                            controllerName: "Evaluation",
+                            routeValues: new
+                              {
+                                  id = @eval.Id
+                              },
+                            htmlAttributes: new
+                             {
+                                 @class="btn btn-default btn-sm",
+                                 target = "_blank",
+                             }
+                        )
+                    </td>
                 }
             </tr>
         }

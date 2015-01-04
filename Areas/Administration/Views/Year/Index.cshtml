@@ -19,15 +19,17 @@
                 </td>
                 <td>
                     @Html.ActionLink(
-                    linkText: "See",
-                    actionName: "Read",
-                    controllerName: "Year",
-                    routeValues: new
-                      {
-                          id = year.Id
-                      },
-                      htmlAttributes: null
-                )
+                        linkText: "See",
+                        actionName: "Read",
+                        controllerName: "Year",
+                        routeValues: new
+                        {
+                            id = year.Id,
+                        },
+                        htmlAttributes: new { 
+                            target="_blank"
+                        }      
+                    )
                 </td>
             </tr>
         }

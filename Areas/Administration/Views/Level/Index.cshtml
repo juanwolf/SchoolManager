@@ -15,28 +15,37 @@
         @foreach (SchoolManager.Models.LevelModel level in Model)
         {
             <tr>
-                <td> @Html.ActionLink(
-                    linkText: level.CycleName,
-                    actionName: "Read",
-                    controllerName: "Cycle",
-                    routeValues: new { 
-                        id = level.Cycle_Id
-                    },
-                    htmlAttributes: null )</td>
+                <td>@Html.ActionLink(
+                        linkText: level.CycleName,
+                        actionName: "Read",
+                        controllerName: "Cycle",
+                        routeValues: new 
+                        { 
+                            id = level.Cycle_Id
+                        },
+                        htmlAttributes: new 
+                        {
+                            target = "_blank"
+                        }
+                    )
+                </td>
 
                 <td>@level.Title</td>
                 <td>
                     @Html.ActionLink(
-                    linkText: "See",
-                    actionName: "Read",
-                    controllerName: "Level",
-                    routeValues: new
-                      {
-                          area="Administration",
-                          id = level.Id
-                      },
-                      htmlAttributes: null
-                )
+                        linkText: "See",
+                        actionName: "Read",
+                        controllerName: "Level",
+                        routeValues: new
+                        {
+                            area="Administration",
+                            id = level.Id
+                        },
+                        htmlAttributes: new
+                        {
+                            target = "_blank"
+                        }
+                    )
                 </td>
             </tr>
         }

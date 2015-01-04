@@ -27,7 +27,6 @@
                         target = "_blank",
                     }
                 )
-                </button>
             </th>
         </tr>
     </thead>
@@ -41,18 +40,18 @@
                 <td>@establishment.Town</td>
                 <td>
                     @Html.ActionLink(
-                    linkText: "See",
-                    actionName: "Read",
-                    controllerName: "Establishment",
-                    routeValues: new
-                      {
-                          id=@establishment.id
-                      },
-                    htmlAttributes: new
-                     {
-                         target = "_blank",
-                     }
-                )
+                        linkText: "See",
+                        actionName: "Read",
+                        controllerName: "Establishment",
+                        routeValues: new
+                          {
+                              id=@establishment.id
+                          },
+                        htmlAttributes: new
+                         {
+                             target = "_blank",
+                         }
+                    )
                 </td>
             </tr>
         }
