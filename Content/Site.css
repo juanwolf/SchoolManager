@@ -12,9 +12,17 @@ hr.small {
     height : 60px;
 }
 footer {
-    background-color: #e7e7e7;
+    background-color: #34495e;
+    color : white;
 }
 
+footer a {
+    color:#ecf0f1 ;
+    text-decoration : underline;
+}
+footer a:hover {
+    color : #bdc3c7;
+}
 footer p {
     margin-bottom : 20px;
     margin-top : 20px;

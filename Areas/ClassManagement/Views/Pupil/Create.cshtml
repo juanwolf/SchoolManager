@@ -135,19 +135,19 @@
         </select>
         </div>
 </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </div>
-        @{Html.EndForm();}
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</div>
+@{Html.EndForm();}
 
-        <!-- Script pour support Firefox -->
-        <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
-        <!-- polyfiller file to detect and load polyfills -->
-        <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
-        <script>
-            webshims.setOptions('waitReady', false);
-            webshims.setOptions('forms-ext', { types: 'date' });
-            webshims.polyfill('forms forms-ext');
-        </script>
+<!-- Script pour support Firefox -->
+<script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+<!-- polyfiller file to detect and load polyfills -->
+<script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+<script>
+    webshims.setOptions('waitReady', false);
+    webshims.setOptions('forms-ext', { types: 'date' });
+    webshims.polyfill('forms forms-ext');
+</script>
