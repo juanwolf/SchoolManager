@@ -21,7 +21,7 @@
     <tr>
         <td>@Model.FirstName</td>
         <td>@Model.LastName</td>
-        <td>@Model.Sex</td>
+        <td>@((SchoolManager.Models.PupilModel.Sexes)Model.Sex)</td>
         <td>@Model.BirthdayDate.ToShortDateString()</td>
         <td>
             @Html.ActionLink(
@@ -92,29 +92,16 @@
 <h2>Results</h2>
 <table class="table">
     <thead>
-        <th>Date</th>
-        <th>Note</th>
-        <th>Total point</th>
-        <th>
-            @Html.ActionLink(
-                linkText: "Add Result",
-                actionName: "Create",
-                controllerName: "Result",
-                routeValues: new
-                {
-                },
-                htmlAttributes: new
-                {
-                    @class = "btn btn-default",
-                    target = "_blank",
-                }
-            )
-        </th>
+        <tr>
+            <th>Date</th>
+            <th>Note</th>
+            <th>Total point</th>
+        </tr>
     </thead>
     @foreach (var resultat in @Model.resultats)
     { 
         <tr>
-            <td>@resultat.EvaluationDate</td>
+            <td>@resultat.EvaluationDate.ToShortDateString()</td>
             <td>@resultat.Note</td>
             <td>@resultat.EvaluationTotalPoint</td>
         </tr>
